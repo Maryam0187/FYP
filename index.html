@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery numberedTextarea Plugin Demo</title>
+<link href="jquery.numberedtextarea.css" rel="stylesheet" type="text/css">
+
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body bgcolor="#E6F6FA">
+    <h1 style="text-align:center; color: black;"><b>Recursive Learning </b></h1>  
+  <table style="width:100%">
+    <tr>
+      <th>
+        Memory Mapper
+      </th>
+      <th>
+        Code Editor
+      </th>
+      <th>
+        Output
+      </th>
+    </tr>
+    <tr>
+      <td style="width:30%">
+          <canvas id="output" >
+              Your browser does not support the HTML5 canvas tag.</canvas>
+      </td>
+      
+      <td style="width:30%">
+          <textarea id="editor" ></textarea>
+      </td>
+    
+    <td style="width:20%" >
+        <p><textarea id="memorymap"></textarea></p>
+        
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="button"  style="background:url('up.png')  center no-repeat; background-size: 100% 100%;"></button> </p>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="button" style="background:url('left.png')  center no-repeat; background-size: 100% 100%;" ></button>
+          &nbsp;&nbsp;
+          <button class="button" style="background:url('right.png')  center no-repeat; background-size: 100% 100%;"></button>
+        </p>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="button" style="background:url('down.png')  center no-repeat; background-size: 100% 100%;" ></button>
+        
+    </td>
+    
+  </tr>  
+  
+  </table>
+  
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="jquery.numberedtextarea.js"></script>
+<script>
+$('#editor').numberedtextarea();
+</script>
+
+</body>
+</html>
