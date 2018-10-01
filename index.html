@@ -8,6 +8,8 @@
 <link href="jquery.numberedtextarea.css" rel="stylesheet" type="text/css">
 
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+
 </head>
 
 <body bgcolor="#E6F6FA">
@@ -18,7 +20,10 @@
         MEMORY MAPPER
       </th>
       <th>
-        CODE EDITOR
+        CODE EDITOR &nbsp;&nbsp;
+        <button>
+             Run
+          </button>
       </th>
       <th>
         OUTPUT
@@ -37,24 +42,66 @@
     <td style="width:20%" >
         <p><textarea id="memorymap"></textarea></p>
         
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="button"  style="background:url('up.png')  center no-repeat; background-size: 100% 100%;"></button> </p>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="button"  style="background:url('up.png')  center no-repeat; background-size: 100% 100%;"></button> </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="button" style="background:url('left.png')  center no-repeat; background-size: 100% 100%;" ></button>
-          &nbsp;&nbsp;
+          <button class="button" style="background:url('down.png')  center no-repeat; background-size: 100% 100%;" ></button>
           <button class="button" style="background:url('right.png')  center no-repeat; background-size: 100% 100%;"></button>
         </p>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="button" style="background:url('down.png')  center no-repeat; background-size: 100% 100%;" ></button>
+            
         
     </td>
     
   </tr>  
   
   </table>
-  
+  <script>
+      var canvas=document.getElementById("output");
+      var ctx=canvas.getContext("2d");
+      ctx.fillStyle="#e6ccff";  // memory
+      ctx.fillRect(10,5,280,130);  // (x , y,width,height) 
+      ctx.fillStyle="#ffff80";    // code block yellow
+      ctx.fillRect(15,15,85,75);
+      ctx.fillStyle="#ffad33";   // pcb block orange
+      ctx.fillRect(15,95,85,38);
+      ctx.fillStyle="#bbff99";   // stack green
+      ctx.fillRect(110,15,95,118);
+      ctx.fillStyle="#66ccff";   // heap blue
+      ctx.fillRect(210,15,75,90);
+      
+      ctx.fillStyle="#ffff80";  // teller box for code block 
+      ctx.fillRect(5,140,10,5);
+      ctx.fillStyle="#000000";
+      ctx.font = "10 8px Arial";
+      ctx.fillText("Code Block",20,145);
+
+      ctx.fillStyle="#ffad33";  // teller box for PCB block 
+      ctx.fillRect(70,140,10,5);
+      ctx.fillStyle="#000000";
+      ctx.font = "10 8px Arial";
+      ctx.fillText("PCB Block",85,145);
+
+      ctx.fillStyle="#bbff99";  // teller box for stack block 
+      ctx.fillRect(135,140,10,5);
+      ctx.fillStyle="#000000";
+      ctx.font = "10 8px Arial";
+      ctx.fillText("Stack Block",150,145);
+
+      ctx.fillStyle="#66ccff";  // teller box for heap block 
+      ctx.fillRect(200,140,10,5);
+      ctx.fillStyle="#000000";
+      ctx.font = "10 8px Arial";
+      ctx.fillText("Heap Block",220,145);
+
+
+
+    
+
+
+    </script>  
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="jquery.numberedtextarea.js"></script>
 <script>
