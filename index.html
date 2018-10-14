@@ -12,7 +12,12 @@
 
 
 <script>
-     // ------------------------funvtion declaration ----------------------
+  var IP;
+  var SP=[];
+  var function_name_array=[];
+  var function_line_array=[];
+  var code_line=[];
+     // ------------------------function declaration ----------------------
       function function_definition(fun_line)
       {
         var temp=fun_line;
@@ -72,7 +77,7 @@
             }
         }
         console.log(return_type +"  "+fun_name_def+"  "+parameter_type+"  "+parameter_name  );
-       // return [return_type,fun_name_def,parameter_type,parameter_name]
+        return [return_type,fun_name_def,parameter_type,parameter_name];
       }
 
       // --------------------------function call--------------------------
@@ -101,6 +106,7 @@
           }
         }
         console.log("function name  "+fun_name+"  fun argument "+fun_arg)
+        return [fun_name,fun_arg];
       }
 
       function condition_if(if_line)
@@ -152,8 +158,9 @@
    
      function runFunction() 
      {
-      var code_line=[];
-      var IP;
+      function_name_array=[];
+      function_line_array=[];
+      code_line=[];
       var text=$("#editor").val();
       var token=text.split("\n");
       var func_array=[];
@@ -166,7 +173,8 @@
         {
           IP=i+1;
           console.log("IP = "+IP);
-          ip_set=true; 
+          ip_set=true;
+          SP.push("main"); 
         }
         if (temp[temp.length-1]==';' && temp[temp.length-2]==')' && ip_set) // check for funtion call
         {
@@ -181,9 +189,12 @@
           {
             condition_if(code_line[i]);
           }
-          else if( tmp[tmp.length-1]==')')
+          else if( tmp[tmp.length-1]==')' && ip_set==false)
           {
-            function_definition(code_line[i]);
+            var re=function_definition(code_line[i]);
+
+            function_name_array.push(re[1].replace(/\s+/g, ''));
+            function_line_array.push(i);
           }
 
         }
@@ -193,7 +204,30 @@
 
     function downfunction()
     {
-      $("#memorymap").text(" hello world");
+      if (SP !=null)
+      {
+        $("#memorymap").text(IP);
+        var tmp=code_line[IP-1].replace(/\s+/g, '');
+        if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' )
+        {
+            IP=function_line_array[0];
+        }
+        else if (tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' )
+        {
+          var re=function_call(code_line[IP-1]);
+          console.log(re[0]);
+          console.log(function_name_array);
+          var get_function_number=function_name_array.indexOf(re[0]);
+          console.log(function_line_array[get_function_number]);
+          IP=function_line_array[get_function_number];
+
+        }
+        if (tmp[0]=='i' && tmp[1]=='f')
+        {
+          
+        }
+        IP=IP+1;
+      }
     }
 
     </script>
