@@ -60,7 +60,6 @@
     
     function addLineNumbers(element, settings) {
         element = $(element);
-        
         var wrapper = element.parents('.numberedtextarea-wrapper');
         
         // Get textarea styles to implement it on line numbers div
@@ -100,7 +99,6 @@
         
         for(i = 1; i<=count; i++) {
             var line = $('<div class="numberedtextarea-number numberedtextarea-number-' + i + '">' + i + '</div>').appendTo(linesDiv);
-            
             if(i === count) {
             	line.css('margin-bottom', paddingBottom + 'px');
             }
@@ -131,7 +129,7 @@
     function allowTabChar(el) {
         $(el).keydown(function(e) {
             if (e.which == 9) {
-                pasteIntoInput(this, "\t");
+                pasteIntoInput(this, "    ");
                 return false;
             }
         });
