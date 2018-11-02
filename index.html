@@ -17,34 +17,68 @@
     {
       check3=true;
       $("#memorymap").text("");
+      $("#output").text("");
+      $("#outputip").text("");
+      $("#outputstack").text("");
+
       codetext=$("#editor").val();
       Parser.parsecode(codetext);
       
     },
     getLine:function()
     {
-      return Parser.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
+        return Parser.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
+      
+      
     }
     ,
     IterateOverCodeLineByLine:function()
+
     {
-      if (MemoryMap.SP !=null)
+      console.log(MemoryMap.SP+"dfdfdsfds");
+      if (MemoryMap.SP.length > 0 )
       {
         if (check3)
         {
           $("#memorymap").text("IP =  "+MemoryMap.IP+MemoryMap.SP);
+          $("#outputip").text("IP = "+MemoryMap.IP);
+          var out1="";
+          for (i=0;i<Parser.function_name_array.length;i++)
+          {
+            out1=out1+Parser.function_name_array[i]+"\n";
+          }
+          out1=out1+variable_name;
+          $("#output").text(out1);
+          $("#outputstack").text(MemoryMap.SP);
+          
 
         }
         else
         {
           $("#memorymap").text("IP =  "+MemoryMap.IP + "\n" + variable_name +" = "+variable_value+MemoryMap.SP);
+          $("#outputip").text("IP = "+MemoryMap.IP);
+          var out1="";
+          for (i=0;i<Parser.function_name_array.length;i++)
+          {
+            out1=out1+Parser.function_name_array[i]+"\n";
+          }
+          out1=out1+variable_name;
+          $("#output").text(out1);
+          var out="";
+          for (i=MemoryMap.SP.length-1;i>=0;i--)
+          {
+             out=out+MemoryMap.SP[i]+"\n";
+            
+          }
+          $("#outputstack").text(out);
+          
         }
         
         
         var tmp=this.getLine();
         Parser.ParseCodeLine(tmp); 
         console.log(this.if_line);
-        if (MemoryMap.IP==this.if_line)
+        if (MemoryMap.IP==this.if_line && Parser.check4)
         {
           MemoryMap.IP=this.else_line;
         }
@@ -57,29 +91,63 @@
     code_line:[],
     function_name_array:[],
     function_line_array:[],
-    
+    check4:false,
 
     ParseCodeLine:function(tmp)
     {
       
-      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' )
-        {                                               
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 && tmp[6]=='n' || tmp[6]==1  )
+      {
+        MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
+        MemoryMap.SP_line_number.pop();
+        MemoryMap.SP.pop();
+        MemoryMap.SP.pop();
+        console.log("indide ppppppppp");
+
+
+      }
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[6]==0)
+      {
+        
+        MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
+        MemoryMap.SP_line_number.pop();
+        MemoryMap.SP.pop();
+        console.log("inside "+MemoryMap.SP);
+        $("#outputip").text("IP = ");
+          var out1="";
+          for (i=0;i<Parser.function_name_array.length;i++)
+          {
+            out1=out1+Parser.function_name_array[i]+"\n";
+          }
+          out1=out1+variable_name;
+          $("#output").text(out1);
+          $("#outputstack").text(MemoryMap.SP);
+      }
+
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4)
+        {   
+          MemoryMap.SP_line_number.push(MemoryMap.IP);
+          console.log(MemoryMap.SP_line_number);                                            
           MemoryMap.IP=this.function_line_array[0];
             variable_value=variable_value-1;
             MemoryMap.SP.push("factorial");
             MemoryMap.SP.push(variable_value);
+            
         }
-        else if (tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' )
+        else if (tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4 )
         {
           var re=Parser.function_call(this.code_line[MemoryMap.IP-1]);
           console.log(re[0]);
           console.log(this.function_name_array);
           var get_function_number=this.function_name_array.indexOf(re[0]);
           console.log(this.function_line_array[get_function_number]);
+          MemoryMap.SP_line_number.push(MemoryMap.IP);
           MemoryMap.IP=this.function_line_array[get_function_number];
           check3=false;
           MemoryMap.SP.push(re[0]);
           MemoryMap.SP.push(re[1]);
+          
+          
 
         }
         if (tmp[0]=='i' && tmp[1]=='f')
@@ -107,6 +175,7 @@
           }
           else  // if condition true
           {
+            Parser.check4=true;
             console.log('inelse');
             var checkif_condition=true;
             TextEditor.if_line=MemoryMap.IP-1;
@@ -357,6 +426,7 @@
   var MemoryMap={
     IP:null,
     SP:[],
+    SP_line_number:[],
     sendFunctionName:function()
     {
 
@@ -389,6 +459,7 @@
        TextEditor.if_line=0;
        TextEditor.else_line=0;
        MemoryMap.SP=[];
+       Parser.check4=false;
        TextEditor.getCode();
      }
     function downfunction()
@@ -396,6 +467,7 @@
       TextEditor.IterateOverCodeLineByLine();
       
     }
+
 
     </script>
 
@@ -409,6 +481,9 @@
         MEMORY MAPPER
       </th>
       <th>
+
+      </th>
+      <th>
         CODE EDITOR &nbsp;&nbsp;
         <button id="run_btn" onclick="runFunction()">
              Run
@@ -419,13 +494,39 @@
       </th>
     </tr>
     <tr>
-      <td style="width:30%">
-          <canvas id="output" >
-              Your browser does not support the HTML5 canvas tag.</canvas>
+      <td style="width:15%">
+        <textarea  id="output" readonly > </textarea>
+        <p><textarea  id="outputip" readonly></textarea> </p>                    
+      </td>
+      <td style="width:15%">
+        <textarea id="outputstack"; readonly  > </textarea>
       </td>
       
       <td style="width:30%">
-          <textarea id="editor" ></textarea>
+          <textarea id="editor" >
+#include <iostream>
+using namespace std;
+
+int factorial(int number)
+{
+    if (number<1)
+    {
+        return 1;
+    }
+    else
+    {
+        return number*factorial(number-1);
+    }
+}
+
+int main()
+{
+    
+    factorial(1);  
+    return 0;
+}
+              
+          </textarea>
       </td>
     
     <td style="width:20%" >
