@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -5,8 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recursive Learning</title>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <link href="jquery.numberedtextarea.css" rel="stylesheet" type="text/css">
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script src="linklist.js"> </script>
+<script src="funlinklist.js"></script>
+
 
 <script>
   var TextEditor={
@@ -27,50 +32,62 @@
     },
     getLine:function()
     {
+   
         return Parser.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
       
       
-    }
-    ,
+    },
     IterateOverCodeLineByLine:function()
 
     {
-      console.log(MemoryMap.SP+"dfdfdsfds");
+      //console.log(MemoryMap.SP+"dfdfdsfds");
       if (MemoryMap.SP.length > 0 )
       {
         if (check3)
         {
-          $("#memorymap").text("IP =  "+MemoryMap.IP+MemoryMap.SP);
-          $("#outputip").text("IP = "+MemoryMap.IP);
-          var out1="";
+
+          //$("#memorymap").text("IP =  "+MemoryMap.IP+MemoryMap.SP);
+          $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
+          var out1=" Data Segment"+"\n"+"_________________"+"\n";
           for (i=0;i<Parser.function_name_array.length;i++)
           {
-            out1=out1+Parser.function_name_array[i]+"\n";
+            out1=out1+"  "+Parser.function_name_array[i]+"\n";
           }
-          out1=out1+variable_name;
+          out1=out1+"  "+variable_name;
           $("#output").text(out1);
-          $("#outputstack").text(MemoryMap.SP);
+
+          var out="    Stack"+"\n"+"___________________"+"\n";
+
+          for (i=MemoryMap.SP.length-1;i>=0;i--)
+          {
+             out=out+"  "+MemoryMap.SP[i]+"\n";
+            
+          }
+          $("#outputstack").text(out);
           
 
         }
         else
         {
-          $("#memorymap").text("IP =  "+MemoryMap.IP + "\n" + variable_name +" = "+variable_value+MemoryMap.SP);
-          $("#outputip").text("IP = "+MemoryMap.IP);
-          var out1="";
+          //$("#memorymap").text("IP =  "+MemoryMap.IP + "\n" + variable_name +" = "+variable_value+MemoryMap.SP);
+          $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
+          var out1=" Data Segment"+"\n"+"_________________"+"\n";
           for (i=0;i<Parser.function_name_array.length;i++)
           {
-            out1=out1+Parser.function_name_array[i]+"\n";
+            out1=out1+"  "+Parser.function_name_array[i]+"\n";
           }
-          out1=out1+variable_name;
+          out1=out1+"  "+variable_name;
           $("#output").text(out1);
-          var out="";
+
+
+           var out="    Stack"+"\n"+"___________________"+"\n";
           for (i=MemoryMap.SP.length-1;i>=0;i--)
           {
-             out=out+MemoryMap.SP[i]+"\n";
+             out=out+"  "+MemoryMap.SP[i]+"\n";
             
           }
           $("#outputstack").text(out);
+         
           
         }
         
@@ -91,18 +108,22 @@
     code_line:[],
     function_name_array:[],
     function_line_array:[],
-    check4:false,
-
+    check4:false, // for return statement 
+    variable_list:"",
+    function_link_list:"",
     ParseCodeLine:function(tmp)
     {
       
+      this.isfunction(tmp);
+      this.isvariable(tmp);
+
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 && tmp[6]=='n' || tmp[6]==1  )
       {
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         MemoryMap.SP_line_number.pop();
         MemoryMap.SP.pop();
         MemoryMap.SP.pop();
-        console.log("indide ppppppppp");
+        //console.log("indide ppppppppp");
 
 
       }
@@ -125,18 +146,19 @@
       }
 
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4)
-        {   
+        {   /*
           MemoryMap.SP_line_number.push(MemoryMap.IP);
           console.log(MemoryMap.SP_line_number);                                            
           MemoryMap.IP=this.function_line_array[0];
-            variable_value=variable_value-1;
-            MemoryMap.SP.push("factorial");
-            MemoryMap.SP.push(variable_value);
-            
+          variable_value=variable_value-1;
+          MemoryMap.SP.push("factorial");
+          MemoryMap.SP.push(variable_value);
+            */
+
         }
         else if (tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4 )
         {
-          var re=Parser.function_call(this.code_line[MemoryMap.IP-1]);
+          /*var re=Parser.function_call(this.code_line[MemoryMap.IP-1]);
           console.log(re[0]);
           console.log(this.function_name_array);
           var get_function_number=this.function_name_array.indexOf(re[0]);
@@ -146,7 +168,7 @@
           check3=false;
           MemoryMap.SP.push(re[0]);
           MemoryMap.SP.push(re[1]);
-          
+          */
           
 
         }
@@ -311,7 +333,10 @@
           }
         }
         variable_value=fun_arg;
-        console.log("function name  "+fun_name+"  fun argument "+fun_arg)
+        console.log("function name  "+fun_name+"  fun argument "+fun_arg); 
+        var what=this.function_link_list.setparaval(fun_name.replace(/\s+/g, ''),fun_arg);
+        console.log(what);
+        this.function_link_list.printlist();
         return [fun_name,fun_arg];
       }
     ,
@@ -377,16 +402,85 @@
         console.log(return_type +"  "+fun_name_def+"  "+parameter_type+"  "+parameter_name  );
         return [return_type,fun_name_def,parameter_type,parameter_name];
       },
+
+    isfunction:function(functionline)
+    {
+      console.log(functionline);
+      for (i=0;i<this.function_name_array.length;i++)
+      {
+        if (functionline.includes(this.function_name_array[i]) && functionline[functionline.length-1]==';')
+        {
+          console.log("yes function");
+          
+          /*var re=Parser.function_call(this.code_line[MemoryMap.IP-1]);
+          console.log(re[0]);
+          console.log(this.function_name_array);
+          var get_function_number=this.function_name_array.indexOf(re[0]);
+          console.log(this.function_line_array[get_function_number]);*/
+
+          Parser.function_call(functionline);
+          MemoryMap.SP_line_number.push(MemoryMap.IP);
+          MemoryMap.IP=this.function_line_array[i];
+          check3=false;
+          MemoryMap.SP.push(this.function_name_array[i]);
+          //MemoryMap.SP.push(re[1]);
+
+        }
+      }
+      
+
+    },
+
+    isvariable:function(variableline)
+    {
+     var var_array=this.variable_list.allvariable();
+     console.log(var_array);
+     for (i=0;i<var_array.length;i++)
+     {
+       if (variableline.includes(var_array[i]))
+       {
+         console.log("variable line");
+       }
+     }
+    }
+    ,
+    getvar_name_values:function(text)
+    {
+      
+      if (text[0]=='i' && text[1]=='n' && text[2]=='t' &&  text[text.length-1]==';' || text[text.length-1]==';' )
+      {
+        var name="";
+        for (i=3;i<text.length;i++)
+        {
+          if (text[i] !=';' || text[i]!= ')')
+          {
+            name=name+text[i];
+          }
+        }
+        this.variable_list.add(name,"NAN","int")
+      }
+      if (text[0]=='f' && text[1]=='l' && text[2]=='o' && text[2]=='a' && text[2]=='t'&&  text[text.length-1]==")" || text[text.length-1]==';' && text[text.length-1]==',' )
+      {
+
+      }
+
+     
+
+    }
+,
     parsecode:function(text)
     {
+      
+      this.variable_list=new linklist();
+      this.function_link_list=new funlinklist();
       this.function_name_array=[];
       this.function_line_array=[];
-      this.code_line=[];
+      this.code_line=[]; 
       var token=text.split("\n");
       var func_array=[];
       var ip_set=false;
       for (var i=0;i<token.length;i++)
-      {
+      { this.getvar_name_values(text.replace(/\s+/g, ''))
         this.code_line.push(token[i]);
         var temp=this.code_line[i].replace(/\s+/g, '');
         if (temp[0]=='i' && temp[1]=='n' && temp[2]=='t' && temp[3]=='m' && temp[4]=='a' && temp[5]=='i' && temp[6]=='n' ) // check for main
@@ -399,7 +493,7 @@
         if (temp[temp.length-1]==';' && temp[temp.length-2]==')' && ip_set) // check for funtion call
         {
           console.log(" function line" + i);
-          this.function_call(this.code_line[i]);
+          //this.function_call(this.code_line[i]);
 
         }
         else
@@ -413,21 +507,29 @@
           {
             var re=this.function_definition(this.code_line[i]);
 
-           this. function_name_array.push(re[1].replace(/\s+/g, ''));
-            this.function_line_array.push(i);
+          this. function_name_array.push(re[1].replace(/\s+/g, ''));
+          this.function_line_array.push(i);
+          this.variable_list.add(re[3],"NAN",re[2]);
+          this.function_link_list.add(re[1].replace(/\s+/g, ''),re[0],re[3],re[2],i+1);
+          
           }
 
         }
+        
       }
       console.log(this.code_line);
+      this.variable_list.printlist();
+      this.function_link_list.printlist();
     }
+
+
   }
 
   var MemoryMap={
     IP:null,
     SP:[],
-    SP_line_number:[],
-    sendFunctionName:function()
+    SP_line_number:[], // return to line number when pop  
+    sendStackvalues:function()
     {
 
     },
@@ -462,20 +564,50 @@
        Parser.check4=false;
        TextEditor.getCode();
      }
+
     function downfunction()
     {
       TextEditor.IterateOverCodeLineByLine();
       
     }
 
+</script>
 
-    </script>
+    
 
 </head>
 
 <body bgcolor="#E6F6FA">
     <h1 style="text-align:center; color: black;"><b>Recursive Learning </b></h1>  
-  <table style="width:100%">
+
+    <div class="box">
+      <div class="output_div">
+
+          <textarea  id="output" readonly > </textarea>
+      </br>
+    </br>
+          <textarea  id="outputip" readonly></textarea>
+      </div>
+      <div class="stack_div">
+          <textarea id="outputstack"; readonly  > </textarea>
+
+      </div>
+
+    </div>
+
+    <div class="box1">
+        <textarea id="editor">
+            
+          </textarea>
+
+
+    </div>
+
+    <div class="box2">
+
+
+    </div>
+  <!-- <table style="width:100%">
     <tr>
       <th>
         MEMORY MAPPER
@@ -493,20 +625,22 @@
         OUTPUT
       </th>
     </tr>
-    <tr>
+    <tr> 
+      <div id="box" >
       <td style="width:15%">
         <textarea  id="output" readonly > </textarea>
         <p><textarea  id="outputip" readonly></textarea> </p>                    
-      </td>
+      </td> 
+      </div>
       <td style="width:15%">
         <textarea id="outputstack"; readonly  > </textarea>
       </td>
       
       <td style="width:30%">
-          <textarea id="editor" >
+
+<textarea id="editor">
 #include <iostream>
 using namespace std;
-
 int factorial(int number)
 {
     if (number<1)
@@ -518,16 +652,14 @@ int factorial(int number)
         return number*factorial(number-1);
     }
 }
-
 int main()
 {
     
     factorial(1);  
     return 0;
 }
-              
-          </textarea>
-      </td>
+</textarea>
+        </td>
     
     <td style="width:20%" >
         <p><textarea id="memorymap"></textarea></p>
@@ -547,13 +679,14 @@ int main()
     
   </tr>  
   
-  </table>
+  </table> -->
   <script>
 
-      /*var canvas=document.getElementById("output");
+      /*var canvas=document.getElementById("myAnimation");
       var ctx=canvas.getContext("2d");
       ctx.fillStyle="#e6ccff";  // memory
       ctx.fillRect(10,5,280,130);  // (x , y,width,height) 
+      
       ctx.fillStyle="#ffff80";    // code block yellow
       ctx.fillRect(15,15,85,75);
       ctx.fillStyle="#ffad33";   // pcb block orange
@@ -587,12 +720,9 @@ int main()
       ctx.font = "10 8px Arial";
       ctx.fillText("Heap Block",220,145);
 
-
 */
     
-
-
-    </script>  
+</script>      
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="jquery.numberedtextarea.js"></script>
 <script>

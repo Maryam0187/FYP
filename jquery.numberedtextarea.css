@@ -33,19 +33,29 @@ div.numberedtextarea-number {
   width: 70%;
   float: top;
   min-height: 300px;
- font-family: Courier, sans-serif;
+  font-family: Courier, sans-serif;
   display: inline-block;
+  font-size: 17px
+
 }
 #outputip{
   border:3px 
   solid #d3d3d3; 
   background-color: "blue";
   width: 70%;
-  float: top;
   min-height: 100px;
  font-family: Courier, sans-serif;
   display: inline-block;
+  font-size: 20px
 }
+
+#output::first-line {
+  font-family: Courier, sans-serif;
+  font-size: 20px;
+  color: #20B2AA 
+
+}
+
 
 #outputstack{
   border:3px 
@@ -54,21 +64,39 @@ div.numberedtextarea-number {
   width: 70%;
   float: top;
   min-height: 400px;
- font-family: Courier, sans-serif;
+  font-family: Courier, sans-serif;
   display: inline-block;
-  bottom: 0
+  bottom: 0;
+font-size: 15px
 }
+
+#outputstack::first-line {
+  font-family: Courier, sans-serif;
+  font-size: 20px;
+  color: #20B2AA 
+
+}
+
 #editor{
   background:#34495E; 
   color:#fff; 
-  width:95%;
+  width:100%; 
   float: top;
   min-height: 500px;
   overflow: scroll;
-  margin: auto;
-  display: inline-block;
+  /* margin: auto; */
+  /* display: inline-block; */
   font-family: Courier, sans-serif;
   font-size: 14px;
+}
+
+
+#myAnimation {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: red;
+  opacity: 0.5;
 }
 
 #memorymap{
@@ -83,4 +111,45 @@ div.numberedtextarea-number {
   padding: 25px;
   text-align: center;
   border-radius: 8px;
+}
+.box{
+  border-color: white;
+    background-color: pink;
+    /* border-radius: 15px; */
+    float: left;
+    height: 500px;
+    width: 30%;
+    margin-left: 2%;
+}
+
+.box1{
+  border-color: white;
+    background-color:pink;
+    /* border-radius: 15px; */
+    height: 500px;
+    width: 30%;
+    margin-left: 2%;
+    display: inline-block;
+}
+.box2{
+  border-color: white;
+    background-color:pink;
+    /* border-radius: 15px; */
+    height: 500px;
+    width: 30%;
+    display: inline-block;
+    margin-left: 2%;
+}
+
+.output_div{
+  
+  float: left;
+  width: 34%;
+  margin-left: 12%;
+  margin-top: 10%;
+  margin-bottom: 4%;
+}
+.stack_div{
+  float: right;
+  margin-top: 10%;
 }
