@@ -1,4 +1,3 @@
-
 div.numberedtextarea-wrapper { position: relative; }
 
 div.numberedtextarea-wrapper textarea {
@@ -23,7 +22,7 @@ div.numberedtextarea-line-numbers {
 div.numberedtextarea-number {
   padding-right: 6px;
   text-align: right;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 #output{

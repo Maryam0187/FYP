@@ -558,6 +558,9 @@
      function runFunction() 
 
      {
+      $("#editor").text("#include <iostream>" + "\n" + "using namespace std;"+"\n"+"int factorial(int number)"+"\n"+"{"+
+      "\n"+"if (number<1)"+"\n"+"{"+"\n"+"return 1;"+"\n"+"}"+"\n"+"else"+"\n"+"{"+"\n"+"return number*factorial(number-1);"+
+      "\n"+"}"+"\n"+"}"+"\n"+"int main()"+"\n"+"{"+"\n"+"factorial(3);"+"\n"+"return 0;"+"\n"+"}");
        TextEditor.if_line=0;
        TextEditor.else_line=0;
        MemoryMap.SP=[];
@@ -570,10 +573,18 @@
       TextEditor.IterateOverCodeLineByLine();
       
     }
-
+    
 </script>
 
-    
+    <script>
+   $(window).onload(function()
+    {
+      $("#editor").text("#include <iostream>" + "\n" + "using namespace std;"+"\n"+"int factorial(int number)"+"\n"+"{"+
+      "\n"+"if (number<1)"+"\n"+"{"+"\n"+"return 1;"+"\n"+"}"+"\n"+"else"+"\n"+"{"+"\n"+"return number*factorial(number-1);"+
+      "\n"+"}"+"\n"+"}"+"\n"+"int main()"+"\n"+"{"+"\n"+"factorial(3);"+"\n"+"return 0;"+"\n"+"}")
+    });
+
+    </script>
 
 </head>
 
@@ -597,7 +608,27 @@
 
     <div class="box1">
         <textarea id="editor">
-            
+#include <iostream>
+using namespace std;
+
+int factorial(int number)
+{
+    if (number<1)
+    {
+        return 1;
+    }
+    else
+    {
+        return number*factorial(number-1);
+    }
+}
+
+int main()
+{
+    factorial(3);  
+    return 0;
+}
+                               
           </textarea>
 
 
