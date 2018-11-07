@@ -70,6 +70,7 @@ class funlinklist{
             if (current.function_name==element)
             {
                 current.parameter_value=val;
+                return 1;
             }
             count++;
             current=current.next;
@@ -96,12 +97,13 @@ class funlinklist{
     {
         var curr = this.head;
         var str= "";
-
+        
         while(curr)
         {
             str +=curr.function_name + " "+curr.function_line+" "+curr.parameter_name+" "+curr.parameter_value+" ";
             curr = curr.next;
         }
+        console.log("------function list-------");
         console.log(str);
     }
 

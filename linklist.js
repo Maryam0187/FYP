@@ -82,7 +82,7 @@ class linklist{
         {
             if (current.variable_name==element)
             {
-                return current.value;
+                return current.variable_value;
             }
             count++;
             current=current.next;
@@ -91,16 +91,20 @@ class linklist{
 
         return "NAN";
     }
-    setvalue(element,val)
+    setvalue(element,vale)
     {
         var count = 0;
         var current= this.head;
-
+         
         while (current != null)
-        {
-            if (current.element==element)
+         {
+            console.log("set values----------out"+vale);
+            if (current.variable_name==element)
             {
-                current.value=val;
+                console.log("set values----------in"+current.variable_name);
+                current.variable_value=vale;
+                console.log("in------------------"+current.variable_value);
+                return 1;
             }
             count++;
             current=current.next;
@@ -131,6 +135,7 @@ class linklist{
             str +=curr.variable_name + " "+curr.variable_value+" "+curr.variable_type+" ";
             curr = curr.next;
         }
+        console.log("--------variable list-----------");
         console.log(str);
     }
 

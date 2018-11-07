@@ -86,7 +86,7 @@ font-size: 15px
   /* margin: auto; */
   /* display: inline-block; */
   font-family: Courier, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 
@@ -113,7 +113,7 @@ font-size: 15px
 }
 .box{
   border-color: white;
-    background-color: pink;
+    background-color: #20B2AA;
     /* border-radius: 15px; */
     float: left;
     height: 500px;
@@ -123,7 +123,7 @@ font-size: 15px
 
 .box1{
   border-color: white;
-    background-color:pink;
+    background-color:#20B2AA;
     /* border-radius: 15px; */
     height: 500px;
     width: 30%;
@@ -132,7 +132,7 @@ font-size: 15px
 }
 .box2{
   border-color: white;
-    background-color:pink;
+    background-color:#20B2AA;
     /* border-radius: 15px; */
     height: 500px;
     width: 30%;
@@ -151,4 +151,55 @@ font-size: 15px
 .stack_div{
   float: right;
   margin-top: 10%;
+}
+.mm{
+  float: left;
+  margin-left: 10%;
+}
+.cr{
+  display: inline-block;
+  margin-left: 20%;
+}
+
+.oo{
+  display: inline-block;
+  margin-left: 14%;
+}
+
+.runbutton{
+ 
+margin-left: 3.8%;
+margin-bottom: 1%;
+display: inline-block;
+padding: 11px 25px;
+font-size: 24px;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+outline: none;
+color: #fff;
+background-color: #34495E;
+border: none;
+border-radius: 15px;
+box-shadow: 0 6px #999;
+}
+
+.runbutton:hover {background-color: #34495E}
+
+.runbutton:active {
+background-color: #34495E;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+.movebuttons{
+float: left;;
+  margin-right: 4%;
+  margin-left: 30%;
+  margin-top: 1%;
+}
+.out{
+  margin: 3%;
+  height: 70%;
+  border:3px;
+  background-color: #34495E;
 }
