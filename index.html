@@ -48,16 +48,16 @@
 
           //$("#memorymap").text("IP =  "+MemoryMap.IP+MemoryMap.SP);
           $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
-          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color: #20B2AA;');
+          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');
           for (i=0;i<Parser.code_line.length;i++)
           {
             if (i != MemoryMap.IP)
             {
-              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#34495E');
+              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
             }
           }
 
-          var out1=" Data Segment"+"\n"+"_________________"+"\n";
+          var out1="Data Segment"+"\n"+"____________"+"\n";
           for (i=0;i<Parser.function_name_array.length;i++)
           {
             out1=out1+"  "+Parser.function_name_array[i]+"\n";
@@ -65,7 +65,7 @@
           out1=out1+"  "+variable_name;
           $("#output").text(out1);
 
-          var out="    Stack"+"\n"+"___________________"+"\n";
+          var out="  Stack"+"\n"+"______________"+"\n";
 
           for (i=MemoryMap.SP.length-1;i>=0;i--)
           {
@@ -82,13 +82,13 @@
           {
             if (i != MemoryMap.IP)
             {
-              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#34495E');
+              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
             }
           }
           //$("#memorymap").text("IP =  "+MemoryMap.IP + "\n" + variable_name +" = "+variable_value+MemoryMap.SP);
-          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color: #20B2AA;');
+          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color: #F9AA33');
           $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
-          var out1=" Data Segment"+"\n"+"_________________"+"\n";
+          var out1="Data Segment"+"\n"+"____________"+"\n";
           for (i=0;i<Parser.function_name_array.length;i++)
           {
             out1=out1+"  "+Parser.function_name_array[i]+"\n";
@@ -97,7 +97,7 @@
           $("#output").text(out1);
 
 
-           var out="    Stack"+"\n"+"___________________"+"\n";
+          var out="  Stack"+"\n"+"______________"+"\n";
           for (i=MemoryMap.SP.length-1;i>=0;i--)
           {
              out=out+"  "+MemoryMap.SP[i]+"\n";
@@ -130,17 +130,20 @@
     function_link_list:"",
     ParseCodeLine:function(tmp)
     {
-      
-      this.isfunction(tmp);
+      if (!this.check4)
+      {
+        this.isfunction(tmp);
+      }
       //this.isvariable(tmp);
 
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 && tmp[6]=='n' || tmp[6]==1  )
       {
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
+        console.log(MemoryMap.IP);
         MemoryMap.SP_line_number.pop();
         MemoryMap.SP.pop();
         MemoryMap.SP.pop();
-        //console.log("indide ppppppppp");
+        console.log("indide pppppppppppppppppppppppppppppppppppps");
 
 
       }
@@ -150,7 +153,7 @@
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         MemoryMap.SP_line_number.pop();
         MemoryMap.SP.pop();
-        console.log("inside "+MemoryMap.SP);
+        console.log("inside "+MemoryMap.IP);
         $("#outputip").text("IP = ");
           var out1="";
           for (i=0;i<Parser.function_name_array.length;i++)
@@ -162,33 +165,6 @@
           $("#outputstack").text(MemoryMap.SP);
       }
 
-      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4)
-        {   /*
-          MemoryMap.SP_line_number.push(MemoryMap.IP);
-          console.log(MemoryMap.SP_line_number);                                            
-          MemoryMap.IP=this.function_line_array[0];
-          variable_value=variable_value-1;
-          MemoryMap.SP.push("factorial");
-          MemoryMap.SP.push(variable_value);
-            */
-
-        }
-        else if (tmp[tmp.length-1]==';' && tmp[tmp.length-2]==')' && !this.check4 )
-        {
-          /*var re=Parser.function_call(this.code_line[MemoryMap.IP-1]);
-          console.log(re[0]);
-          console.log(this.function_name_array);
-          var get_function_number=this.function_name_array.indexOf(re[0]);
-          console.log(this.function_line_array[get_function_number]);
-          MemoryMap.SP_line_number.push(MemoryMap.IP);
-          MemoryMap.IP=this.function_line_array[get_function_number];
-          check3=false;
-          MemoryMap.SP.push(re[0]);
-          MemoryMap.SP.push(re[1]);
-          */
-          
-
-        }
         if (tmp[0]=='i' && tmp[1]=='f')
         {
           
@@ -202,7 +178,7 @@
             {
               MemoryMap.IP=MemoryMap.IP+1;
               var tmp=this.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
-              console.log(tmp);
+              //console.log(tmp);
               if (tmp[0]=='e' && tmp[1]=='l' && tmp[2]=='s' && tmp[3]=='e')
               {
                 check_condition=false;
@@ -226,7 +202,7 @@
               {
                 checkif_condition=false;
                 //TextEditor.if_line=TextEditor.if_line+1;
-                console.log(TextEditor.if_line);
+                //console.log(TextEditor.if_line);
               }
               TextEditor.if_line=TextEditor.if_line+1;
             }
@@ -239,7 +215,7 @@
               {
                 checkif_condition=true;
                 //TextEditor.else_line=TextEditor.else_line+1;
-                console.log(TextEditor.else_line);
+                //console.log(TextEditor.else_line);
               }
               TextEditor.else_line=TextEditor.else_line+1;
             }
@@ -255,8 +231,8 @@
       var re=this.condition_if(cond);   // left , right, operator
            
           var left=this.variable_list.getvalue(re[0]);
-          console.log(re[0]+" if condition--- "+left);
-          this.variable_list.printlist(); 
+          //console.log(re[0]+" if condition--- "+left);
+          //this.variable_list.printlist(); 
           if (re[2]=='<')
           {
                
@@ -447,19 +423,26 @@
                  console.log("not a interger");
                  var name=this.getvariable_name(re[1].replace(/\s+/g, ''));
                  var val=this.variable_list.getvalue(name.replace(/\s+/g, ''));
-                 console.log(val+"valllllllllllllllllleeeeeeeeeeeeeee");
+                 console.log(val+"+valllllllllllllllllleeeeeeeeeeeeeee"+name);
                  val=val-1;
-                 this.variable_list.setvalue(name.replace(/\s+/g, ''),val);
+                 this.variable_list.setvalue(this.function_link_list.getpara(),val);
                  console.log(name);
                  this.variable_list.printlist();
+                 MemoryMap.SP.push("number = "+val);
 
            }
           else
           {
             console.log("function name  "+re[0]+"  fun argument "+re[1]); 
             var what=this.function_link_list.setparaval(re[0].replace(/\s+/g, ''),re[1]);
-            this.variable_list.setvalue(re[0].replace(/\s+/g, ''),3);
-            console.log(what+"what");
+            //console.log(this.function_link_list.getpara()+"---------------------------------");
+            this.variable_list.setvalue(this.function_link_list.getpara(),Number(re[1]));
+            console.log(what+"what----"+re[0]);
+            //var val=this.variable_list.getvalue("number");
+            //console.log(val+"656654545");
+            this.variable_list.printlist();
+            MemoryMap.SP.push("number = "+re[1]);
+
           }
                                       
           //this.function_link_list.printlist();
@@ -516,7 +499,6 @@
             name=name+text[i];
           }
         }
-        //this.variable_list.add(name,"NAN","int")
       }
       if (text[0]=='f' && text[1]=='l' && text[2]=='o' && text[2]=='a' && text[2]=='t'&&  text[text.length-1]==")" || text[text.length-1]==';' && text[text.length-1]==',' )
       {
@@ -633,7 +615,7 @@
 </script>
 </head>
 
-<body bgcolor="#E6F6FA">
+<body bgcolor="#50636E">
     <h1 style="text-align:center; color: black;"><b>Recursive Learning </b></h1>  
     <div class="headings">
 
@@ -672,7 +654,7 @@ int factorial(int number)
     }
     else
     {
-        return number*factorial(number-1);
+    return number*factorial(number-1);
     }
 }
 

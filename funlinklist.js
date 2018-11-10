@@ -80,6 +80,11 @@ class funlinklist{
         return -1;
 
     }
+    getpara()
+    {
+        var current=this.head; 
+        return current.parameter_name;   
+    }
     
 
     isEmpty()

@@ -82,6 +82,7 @@ class linklist{
         {
             if (current.variable_name==element)
             {
+                console.log(current.variable_value+" in get value function");
                 return current.variable_value;
             }
             count++;
@@ -99,6 +100,8 @@ class linklist{
         while (current != null)
          {
             console.log("set values----------out"+vale);
+            console.log("set values----------in element"+element);
+
             if (current.variable_name==element)
             {
                 console.log("set values----------in"+current.variable_name);
