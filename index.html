@@ -11,9 +11,13 @@
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="linklist.js"> </script>
 <script src="funlinklist.js"></script>
+<script src="math.js" type="text/javascript"></script>
 
 
 <script>
+
+
+
   var TextEditor={
     codetext:"",
     if_line:0,
@@ -42,80 +46,24 @@
     {
       //console.log(MemoryMap.SP+"dfdfdsfds");
       if (MemoryMap.SP.length > 0 )
+      
       {
-        if (check3)
-        {
-
-          //$("#memorymap").text("IP =  "+MemoryMap.IP+MemoryMap.SP);
-          $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
-          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');
-          for (i=0;i<Parser.code_line.length;i++)
-          {
-            if (i != MemoryMap.IP)
-            {
-              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
-            }
-          }
-
-          var out1="Data Segment"+"\n"+"____________"+"\n";
-          for (i=0;i<Parser.function_name_array.length;i++)
-          {
-            out1=out1+"  "+Parser.function_name_array[i]+"\n";
-          }
-          out1=out1+"  "+variable_name;
-          $("#output").text(out1);
-
-          var out="  Stack"+"\n"+"______________"+"\n";
-
-          for (i=MemoryMap.SP.length-1;i>=0;i--)
-          {
-             out=out+"  "+MemoryMap.SP[i]+"\n";
-            
-          }
-          $("#outputstack").text(out);
-          
-
-        }
-        else
-        {
-          for (i=0;i<Parser.code_line.length;i++)
-          {
-            if (i != MemoryMap.IP)
-            {
-              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
-            }
-          }
-          //$("#memorymap").text("IP =  "+MemoryMap.IP + "\n" + variable_name +" = "+variable_value+MemoryMap.SP);
-          $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color: #F9AA33');
-          $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
-          var out1="Data Segment"+"\n"+"____________"+"\n";
-          for (i=0;i<Parser.function_name_array.length;i++)
-          {
-            out1=out1+"  "+Parser.function_name_array[i]+"\n";
-          }
-          out1=out1+"  "+variable_name;
-          $("#output").text(out1);
-
-
-          var out="  Stack"+"\n"+"______________"+"\n";
-          for (i=MemoryMap.SP.length-1;i>=0;i--)
-          {
-             out=out+"  "+MemoryMap.SP[i]+"\n";
-            
-          }
-          $("#outputstack").text(out);
-         
-          
-        }
         
+        $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');          for (i=0;i<Parser.code_line.length;i++)
+          {
+            if (i != MemoryMap.IP)
+            {
+              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
+            }
+          }
         
         var tmp=this.getLine();
         Parser.ParseCodeLine(tmp); 
         console.log(this.if_line);
-        if (MemoryMap.IP==this.if_line && Parser.check4)
-        {
-          MemoryMap.IP=this.else_line;
-        }
+        //   if (MemoryMap.IP==this.if_line && Parser.check4)
+        //   {
+        //     MemoryMap.IP=this.else_line;
+        //  }
         MemoryMap.IP=MemoryMap.IP+1;
       }
     }
@@ -130,13 +78,17 @@
     function_link_list:"",
     ParseCodeLine:function(tmp)
     {
+        MemoryMap.sendIP();
+        MemoryMap.sendStackvalues();
+        MemoryMap.sendDataValues();
+      
+
       if (!this.check4)
       {
         this.isfunction(tmp);
       }
-      //this.isvariable(tmp);
 
-      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 && tmp[6]=='n' || tmp[6]==1  )
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 )
       {
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         console.log(MemoryMap.IP);
@@ -150,22 +102,13 @@
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[6]==0)
       {
         
+        console.log("in return 0")
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         MemoryMap.SP_line_number.pop();
         MemoryMap.SP.pop();
-        console.log("inside "+MemoryMap.IP);
-        $("#outputip").text("IP = ");
-          var out1="";
-          for (i=0;i<Parser.function_name_array.length;i++)
-          {
-            out1=out1+Parser.function_name_array[i]+"\n";
-          }
-          out1=out1+variable_name;
-          $("#output").text(out1);
-          $("#outputstack").text(MemoryMap.SP);
       }
 
-        if (tmp[0]=='i' && tmp[1]=='f')
+      if (tmp[0]=='i' && tmp[1]=='f')
         {
           
           if (! Parser.check_if_condition(this.code_line[MemoryMap.IP-1]))  // if condition false
@@ -179,10 +122,11 @@
               MemoryMap.IP=MemoryMap.IP+1;
               var tmp=this.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
               //console.log(tmp);
-              if (tmp[0]=='e' && tmp[1]=='l' && tmp[2]=='s' && tmp[3]=='e')
+              //if (tmp[0]=='e' && tmp[1]=='l' && tmp[2]=='s' && tmp[3]=='e')
+              if (tmp[0]=='}')
               {
                 check_condition=false;
-                MemoryMap.IP=MemoryMap.IP-1;
+                MemoryMap.IP=MemoryMap.IP;
               }
 
             }
@@ -191,39 +135,41 @@
           else  // if condition true
           {
             Parser.check4=true;
-            console.log('inelse');
-            var checkif_condition=true;
-            TextEditor.if_line=MemoryMap.IP-1;
-            while (checkif_condition)
-            {
+            // console.log('inelse');
+            // var checkif_condition=true;
+            // TextEditor.if_line=MemoryMap.IP-1;
+            // while (checkif_condition)
+            // {
               
-              var tmp1=this.code_line[TextEditor.if_line].replace(/\s+/g, '');
-              if (tmp1=='}')
-              {
-                checkif_condition=false;
-                //TextEditor.if_line=TextEditor.if_line+1;
-                //console.log(TextEditor.if_line);
-              }
-              TextEditor.if_line=TextEditor.if_line+1;
-            }
-            TextEditor.else_line=TextEditor.if_line;
-            while(!checkif_condition)
-            {
-              var tmp2=this.code_line[TextEditor.else_line].replace(/\s+/g, '');
-              console.log(tmp1);
-              if (tmp2=='}')
-              {
-                checkif_condition=true;
-                //TextEditor.else_line=TextEditor.else_line+1;
-                //console.log(TextEditor.else_line);
-              }
-              TextEditor.else_line=TextEditor.else_line+1;
-            }
+            //   var tmp1=this.code_line[TextEditor.if_line].replace(/\s+/g, '');
+            //   if (tmp1=='}')
+            //   {
+            //     checkif_condition=false;
+            //     //TextEditor.if_line=TextEditor.if_line+1;
+            //     //console.log(TextEditor.if_line);
+            //   }
+            //   TextEditor.if_line=TextEditor.if_line+1;
+            // }
+            // TextEditor.else_line=TextEditor.if_line;
+            // while(!checkif_condition)
+            // {
+            //   var tmp2=this.code_line[TextEditor.else_line].replace(/\s+/g, '');
+            //   console.log(tmp1);
+            //   if (tmp2=='}')
+            //   {
+            //     checkif_condition=true;
+            //     //TextEditor.else_line=TextEditor.else_line+1;
+            //     //console.log(TextEditor.else_line);
+            //   }
+            //   TextEditor.else_line=TextEditor.else_line+1;
+            
+            // }
 
 
           }
 
         }
+        
 
     },
     check_if_condition:function(cond)
@@ -330,12 +276,7 @@
           }
         }
         
-         variable_value=fun_arg;        
-        //  console.log("function name  "+fun_name+"  fun argument "+fun_arg); 
-        //  var what=this.function_link_list.setparaval(fun_name.replace(/\s+/g, ''),fun_arg);
-        //  console.log(what+"what");
-        //  this.function_link_list.printlist();
-        
+         variable_value=fun_arg; 
          return [fun_name,fun_arg];
         
         
@@ -418,17 +359,22 @@
           MemoryMap.SP.push(this.function_name_array[i]);
           var re=Parser.function_call(functionline);
           console.log(re[1]+"fdfjfdsfdsjfldsfldjfldsjfldsjfdlsjfds");
-           if (this.isvariable(re[1]))
+           if (this.arthimeticline(re[1]))
            {
-                 console.log("not a interger");
+             this.parsearthmetic(re[1]);
+          }
+          if (this.isvariable(re[1]))
+           {
+                  //      console.log("not a interger");
                  var name=this.getvariable_name(re[1].replace(/\s+/g, ''));
-                 var val=this.variable_list.getvalue(name.replace(/\s+/g, ''));
-                 console.log(val+"+valllllllllllllllllleeeeeeeeeeeeeee"+name);
-                 val=val-1;
+                  //var val=this.variable_list.getvalue(name.replace(/\s+/g, ''));
+                  //console.log(val+"+valllllllllllllllllleeeeeeeeeeeeeee"+name);
+                  //val=val-1;
+                val=this.parsearthmetic(re[1]);
                  this.variable_list.setvalue(this.function_link_list.getpara(),val);
-                 console.log(name);
+                 //console.log(name);
                  this.variable_list.printlist();
-                 MemoryMap.SP.push("number = "+val);
+                 MemoryMap.SP.push(name+" = "+val);
 
            }
           else
@@ -441,7 +387,7 @@
             //var val=this.variable_list.getvalue("number");
             //console.log(val+"656654545");
             this.variable_list.printlist();
-            MemoryMap.SP.push("number = "+re[1]);
+            MemoryMap.SP.push(this.function_link_list.getpara()+" = "+re[1]);
 
           }
                                       
@@ -507,8 +453,100 @@
 
      
 
+    },
+    arthimeticline:function(text)
+    {
+      ar_arry=['+','-','*','/'];
+      for (i=0;i<ar_arry.length;i++)
+      {
+        
+        if (text.includes(ar_arry[i]))
+        {
+          //console.log("arithmetic line");
+          return true;
+        }
+
+      }
+      return false;
+    }, 
+    parsearthmetic:function(text)
+    {
+      var operandarray=[];
+      var string="";
+      var operatorarray=[];
+      if(this.arthimeticline(text))
+      {
+        for (i=0;i<text.length;i++)
+        {
+          
+          if (text[i]=='+' || text[i]=='-' || text[i]=='*' || text[i]=='/')
+          {
+            operandarray.push(string);
+            operatorarray.push(text[i]);
+            string="";
+          }
+          else
+          {
+            string=string+text[i];
+          }
+          
+        }
+        string = "";
+        string1="";
+        i=text.length-1;
+        while(text[i] !='+' && text[i]!='-' && text[i]!='*' && text[i]!='/')
+        {
+          if (text[i] != ';' && text[i]!=')')
+          {
+            string=string+text[i];
+          }
+          i--;
+        }
+        for (i=string.length-1;i>=0;i--)
+        {
+          string1=string1+string[i];
+        }
+        operandarray.push(string1);
+      }
+      console.log(operandarray);
+      console.log(operatorarray);
+
+      for (i=0;i<operatorarray.length;i++)
+      {
+        var arthstring="";
+      if (Number(operandarray[i]))
+      {
+        console.log(true+"Maryam");
+        var op1=Number(operandarray[i]);
+        console.log(operandarray[i]);
+        console.log(op1);
+        arthstring=arthstring+op1;
+
+      }
+      else
+      {
+        op1=this.variable_list.getvalue(operandarray[i]);
+        arthstring=arthstring+op1;
+      }
+      arthstring=arthstring+operatorarray[i];
+
+      if (Number(operandarray[i+1]))
+      {
+        console.log(true+"Maryam");
+        op2=Number(operandarray[i+1]);
+        arthstring=arthstring+op2;
+      }
+      else
+      {
+        op2=this.variable_list.getvalue(operandarray[i+1]);
+        arthstring=arthstring+op2;
+      }  
     }
-,
+    var value=math.eval(arthstring);
+  console.log(value+  " mariaaa");
+  console.log(arthstring + " expression");
+  return value;
+    },
     parsecode:function(text)
     {
       
@@ -561,7 +599,8 @@
       console.log(this.code_line);
       this.variable_list.printlist();
       this.function_link_list.printlist();
-    }
+    },
+  
 
 
   }
@@ -572,15 +611,29 @@
     SP_line_number:[], // return to line number when pop  
     sendStackvalues:function()
     {
-
+      var out="  Stack"+"\n"+"______________"+"\n";
+      for (i=MemoryMap.SP.length-1;i>=0;i--)
+      {
+          out=out+"  "+MemoryMap.SP[i]+"\n";
+        
+      }
+      $("#outputstack").text(out);
+      
     },
     sendIP:function()
     {
-
+      $("#outputip").text("\n" +"  IP = "+MemoryMap.IP);
+      
     },
     sendDataValues:function()
     {
-
+      var out1="Data Segment"+"\n"+"____________"+"\n";
+      for (i=0;i<Parser.function_name_array.length;i++)
+      {
+        out1=out1+"  "+Parser.function_name_array[i]+"\n";
+      }
+      out1=out1+"  "+variable_name;
+      $("#output").text(out1);
     }
   }
 
@@ -599,11 +652,18 @@
      function runFunction() 
 
      {
+      console.log (math.eval('(2+1)*8/4.2'));
        TextEditor.if_line=0;
        TextEditor.else_line=0;
        MemoryMap.SP=[];
        Parser.check4=false;
        TextEditor.getCode();
+       $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');
+       MemoryMap.sendStackvalues();
+       MemoryMap.sendIP();
+       MemoryMap.sendDataValues();
+       MemoryMap.IP=MemoryMap.IP+1;
+
      }
 
     function downfunction()

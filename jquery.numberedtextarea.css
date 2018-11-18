@@ -28,7 +28,7 @@ div.numberedtextarea-number {
 #output{
   border:3px 
   solid #d3d3d3; 
-  background-color: "blue";
+  background-color: #6FBF44;
   width: 70%;
   float: top;
   min-height: 300px;
@@ -40,9 +40,10 @@ div.numberedtextarea-number {
 #outputip{
   border:3px 
   solid #d3d3d3; 
-  background-color: "blue";
+  background-color: #03A45E;
   width: 70%;
   min-height: 100px;
+
  font-family: Courier, sans-serif;
   display: inline-block;
   font-size: 20px
@@ -51,7 +52,7 @@ div.numberedtextarea-number {
 #output::first-line {
   font-family: Courier, sans-serif;
   font-size: 17px;
-  color: #20B2AA 
+  color:white
 
 }
 
@@ -59,7 +60,7 @@ div.numberedtextarea-number {
 #outputstack{
   border:3px 
   solid #d3d3d3; 
-  background-color: "blue";
+  background-color:#0465B2;
   width: 70%;
   float: top;
   min-height: 400px;
@@ -72,7 +73,7 @@ font-size: 15px
 #outputstack::first-line {
   font-family: Courier, sans-serif;
   font-size: 20px;
-  color: #20B2AA 
+  color:white 
 
 }
 
@@ -114,7 +115,7 @@ font-size: 15px
 .box{
   border-color: white;
     background-color: #20B2AA;
-    /* border-radius: 15px; */
+    border-radius: 15px; 
     float: left;
     height: 500px;
     width: 32%;

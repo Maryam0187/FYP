@@ -70,7 +70,7 @@ class funlinklist{
             if (current.function_name==element)
             {
                 current.parameter_value=val;
-                return 1;
+                return 1;               
             }
             count++;
             current=current.next;
