@@ -76,6 +76,8 @@
     check4:false, // for return statement 
     variable_list:"",
     function_link_list:"",
+    return_check:false,
+    return_val:"",
     ParseCodeLine:function(tmp)
     {
         MemoryMap.sendIP();
@@ -87,17 +89,54 @@
       {
         this.isfunction(tmp);
       }
-
-      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4 )
+      if(this.return_check)
       {
+        console.log("in side the return check");
+        console.log(tmp);
+        var resub=tmp;
+        var function_name;
+        for (i=0;i<this.function_name_array.length;i++)
+        {
+          if (resub.includes(this.function_name_array[i]))
+          {
+            function_name=this.function_name_array[i];
+          }
+        }
+        console.log(resub);
+        var fun_idx=resub.indexOf(function_name);
+        var tmpret="";
+        for (i=fun_idx;resub[i-1] !=')' ;i++ )
+        {
+          tmpret=tmpret+resub[i];
+        }
+        tmp=tmp.replace(tmpret,this.return_val);
+        console.log(tmp);
+        //this.code_line[MemoryMap.IP]=o;
+        //console.log(this.code_line[MemoryMap.IP]);
+      }
+
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4  && tmp[6]!=0)
+      {
+        this.return_check=true;
+        var ret_val=""; // to get the value of return        
+        for (i=6;i<tmp.length-1;i++)
+        {
+          ret_val=ret_val+tmp[i];
+        }
+        this.return_val=ret_val;
+        console.log(ret_val);
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         console.log(MemoryMap.IP);
         MemoryMap.SP_line_number.pop();
         MemoryMap.SP.pop();
         MemoryMap.SP.pop();
-        console.log("indide pppppppppppppppppppppppppppppppppppps");
-
-
+        //console.log("indide ppppppppppppppppppppppppppps");
+        
+        
+      }
+      else
+      {
+        this.return_check=false;
       }
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && tmp[6]==0)
       {
