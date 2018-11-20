@@ -110,11 +110,14 @@
           tmpret=tmpret+resub[i];
         }
         tmp=tmp.replace(tmpret,this.return_val);
-        console.log(tmp);
-        //this.code_line[MemoryMap.IP]=o;
-        //console.log(this.code_line[MemoryMap.IP]);
+        console.log(tmp,'tmpppppp');
       }
 
+      if (tmp[0]=='c' && tmp[1]=='o' && tmp[2]=='u' && tmp[3]=='t' && tmp[4]=='<' && tmp[5]=='<' && this.check4)
+      {
+        console.log("cout statement ",tmp);
+        MemoryMap.sendToOut(tmp);
+      }
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4  && tmp[6]!=0)
       {
         this.return_check=true;
@@ -123,8 +126,35 @@
         {
           ret_val=ret_val+tmp[i];
         }
+        
         this.return_val=ret_val;
+        
+        console.log(MemoryMap.SP[MemoryMap.SP.length-1]);
         console.log(ret_val);
+        if (this.isvariable(ret_val))
+        {
+          var name=this.getvariable_name(ret_val);
+          console.log(name,MemoryMap.SP[MemoryMap.SP.length-1]);
+          if (MemoryMap.SP[MemoryMap.SP.length-1].includes(name))
+          {
+            console.log("variable in stack");
+            var val="";
+            for (i=name.length;i<MemoryMap.SP[MemoryMap.SP.length-1].length;i++)
+            {
+              if(MemoryMap.SP[MemoryMap.SP.length-1][i]!=";" && MemoryMap.SP[MemoryMap.SP.length-1][i]!="=")
+              {
+                val=val+MemoryMap.SP[MemoryMap.SP.length-1][i];
+              }
+            }
+            console.log(val+" stack value");
+            this.variable_list.setvalue(name,val.replace(/\s+/g, ''));
+            this.return_val=this.parsearthmetic(ret_val);
+            console.log(this.parsearthmetic(ret_val));
+          }
+
+
+        }
+
         MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
         console.log(MemoryMap.IP);
         MemoryMap.SP_line_number.pop();
@@ -174,43 +204,13 @@
           else  // if condition true
           {
             Parser.check4=true;
-            // console.log('inelse');
-            // var checkif_condition=true;
-            // TextEditor.if_line=MemoryMap.IP-1;
-            // while (checkif_condition)
-            // {
-              
-            //   var tmp1=this.code_line[TextEditor.if_line].replace(/\s+/g, '');
-            //   if (tmp1=='}')
-            //   {
-            //     checkif_condition=false;
-            //     //TextEditor.if_line=TextEditor.if_line+1;
-            //     //console.log(TextEditor.if_line);
-            //   }
-            //   TextEditor.if_line=TextEditor.if_line+1;
-            // }
-            // TextEditor.else_line=TextEditor.if_line;
-            // while(!checkif_condition)
-            // {
-            //   var tmp2=this.code_line[TextEditor.else_line].replace(/\s+/g, '');
-            //   console.log(tmp1);
-            //   if (tmp2=='}')
-            //   {
-            //     checkif_condition=true;
-            //     //TextEditor.else_line=TextEditor.else_line+1;
-            //     //console.log(TextEditor.else_line);
-            //   }
-            //   TextEditor.else_line=TextEditor.else_line+1;
-            
-            // }
-
-
           }
 
         }
         
 
     },
+
     check_if_condition:function(cond)
      {
       var re=this.condition_if(cond);   // left , right, operator
@@ -673,6 +673,10 @@
       }
       out1=out1+"  "+variable_name;
       $("#output").text(out1);
+    },
+    sendToOut:function(val)
+    {
+      $("#out").text(val);
     }
   }
 
@@ -759,23 +763,23 @@ int factorial(int number)
 
 int main()
 {
-    factorial(3);  
+    int num=3;
+    cout<<factorial(3);  
     return 0;
 }
-                               
-          </textarea>
+</textarea>
 
 
     </div>
 
     <div class="box2">
-
-      <div class="out"></div>
       <div class="movebuttons">
+        <textarea id="out"></textarea>
+
         <div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="button"  style="background:url('up.png')  center no-repeat; background-size: 100% 100%;"></button></div>
-          
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="button" style="background:url('left.png')  center no-repeat; background-size: 100% 100%;" ></button>
           <button class="button" id="down" onclick=downfunction() style="background:url('down.png')  center no-repeat; background-size: 100% 100%;" ></button>
           <button class="button" style="background:url('right.png')  center no-repeat; background-size: 100% 100%;"></button>
