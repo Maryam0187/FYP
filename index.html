@@ -16,9 +16,7 @@
 
 <script>
 
-
-
-  var TextEditor={
+ var TextEditor={
     codetext:"",
     if_line:0,
     else_line:0,
@@ -34,17 +32,17 @@
       Parser.parsecode(codetext);
       
     },
-    getLine:function()
+    getLine:function(line)
     {
    
-        return Parser.code_line[MemoryMap.IP-1].replace(/\s+/g, '');
+        return Parser.code_line[line].replace(/\s+/g, '');
       
       
     },
     IterateOverCodeLineByLine:function(pre)
 
     {
-      //console.log(MemoryMap.SP+"dfdfdsfds");
+
       if (MemoryMap.SP.length > 0 )
       
       {
@@ -57,13 +55,9 @@
             }
           }
         
-        var tmp=this.getLine();
+        var tmp=this.getLine(MemoryMap.IP-1);
         Parser.ParseCodeLine(tmp); 
         console.log(this.if_line);
-        //   if (MemoryMap.IP==this.if_line && Parser.check4)
-        //   {
-        //     MemoryMap.IP=this.else_line;
-        //  }
         MemoryMap.IP=MemoryMap.IP+1;
       }
     }
@@ -78,16 +72,16 @@
     function_link_list:"",
     return_check:false,
     return_val:"",
+    function_check:"",
     ParseCodeLine:function(tmp)
     {
         MemoryMap.sendIP();
         MemoryMap.sendStackvalues();
-        MemoryMap.sendDataValues();
+        //MemoryMap.sendDataValues();
       
-
       if (!this.check4)
       {
-        this.isfunction(tmp);
+        this.function_check= this.isfunction(tmp);
       }
       if(this.return_check)
       {
@@ -113,10 +107,82 @@
         console.log(tmp,'tmpppppp');
       }
 
-      if (tmp[0]=='c' && tmp[1]=='o' && tmp[2]=='u' && tmp[3]=='t' && tmp[4]=='<' && tmp[5]=='<' && this.check4)
+      if (tmp[0]=='c' && tmp[1]=='o' && tmp[2]=='u' && tmp[3]=='t' && tmp[4]=='<' && tmp[5]=='<' && !this.function_check)
       {
-        console.log("cout statement ",tmp);
-        MemoryMap.sendToOut(tmp);
+        console.log("cout statement ",tmp,this.code_line[MemoryMap.IP-1]);
+        var cout_value="";
+        var cout_array=[];
+        for (i=0;i<this.code_line[MemoryMap.IP-1].length-1;i++)
+        {
+          if (this.code_line[MemoryMap.IP-1][i]=="<")
+          {
+            cout_array.push(cout_value);
+            i=i+1;
+            cout_value="";
+          }
+          else
+          {
+
+            cout_value=cout_value+this.code_line[MemoryMap.IP-1][i];
+          }
+          
+        }
+
+        cout_array.push(cout_value);
+        console.log(cout_array);
+        cout_value="";
+        var str="";
+        for (k=1;k<cout_array.length;k++)
+        {
+          console.log(cout_array[k],"nnnnnnnnnnnnnn");
+          var functiontmp=cout_array[k].replace(/\s+/g, '');
+          if (functiontmp[functiontmp.length-1]==';' && functiontmp[functiontmp.length-2]==')')
+          {
+            console.log(this.return_val+" innnnnnnn");
+            str=str+this.return_val;
+          }
+          else if(cout_array[k][0]=='"')
+          {
+            for (y=1;y<cout_array[k].length-2;y++)
+            {
+              cout_value=cout_value+cout_array[k][y];
+            }
+            str=str+cout_value;
+            cout_value="";
+          }
+         else if (this.isvariable(cout_array[k]))
+         {
+          var var_name=this.getvariable_name(cout_array[k]);
+          var var_val=this.variable_list.getvalue(var_name);
+          cout_value=cout_array[k].replace(var_name,var_val);
+          var t="";
+          for(g=0;g<cout_value.length-2;g++)
+          {
+              t=t+cout_value[g];
+          }
+          cout_value=t;
+          if (this.arthimeticline(cout_value))
+          {
+            cout_value=this.parsearthmetic(cout_value);
+          }
+          str=str+cout_value;
+          cout_value="";
+
+        }
+        else
+        {
+          str=str+cout_array[k];
+          if (this.arthimeticline(str))
+          {
+            str=this.parsearthmetic(str);
+          }
+        }
+
+        }
+        
+        var coutval=$("#out").val();
+        cout_value=coutval+'\n'+str;
+        MemoryMap.sendToOut(cout_value);
       }
       if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4  && tmp[6]!=0)
       {
@@ -386,39 +452,49 @@
 
     isfunction:function(functionline)
     {
+      var check_val=false;
       console.log(functionline);
       for (i=0;i<this.function_name_array.length;i++)
       {
+        console.log(this.function_name_array[i]);
         if (functionline.includes(this.function_name_array[i]) && functionline[functionline.length-1]==';')
         {
           console.log("yes function");
+          check_val=true;
           MemoryMap.SP_line_number.push(MemoryMap.IP);
           MemoryMap.IP=this.function_line_array[i];
           check3=false;
           MemoryMap.SP.push(this.function_name_array[i]);
           var re=Parser.function_call(functionline);
           console.log(re[1]+"fdfjfdsfdsjfldsfldjfldsjfldsjfdlsjfds");
-           if (this.arthimeticline(re[1]))
-           {
-             this.parsearthmetic(re[1]);
-          }
           if (this.isvariable(re[1]))
            {
-                  //      console.log("not a interger");
-                 var name=this.getvariable_name(re[1].replace(/\s+/g, ''));
-                  //var val=this.variable_list.getvalue(name.replace(/\s+/g, ''));
-                  //console.log(val+"+valllllllllllllllllleeeeeeeeeeeeeee"+name);
-                  //val=val-1;
-                val=this.parsearthmetic(re[1]);
+
+                var val;
+                var name=this.getvariable_name(re[1].replace(/\s+/g, ''));
+                if (this.arthimeticline(re[1]))
+                {
+                  val=this.parsearthmetic(re[1]);
+                }
+                else
+                {
+                  console.log(" not a arthmetic ");
+                  val=this.variable_list.getvalue(name);
+                  console.log( val , this.function_link_list.getpara());
+                  name=this.function_link_list.getpara(); 
+                }
+                 
+                 
                  this.variable_list.setvalue(this.function_link_list.getpara(),val);
                  //console.log(name);
                  this.variable_list.printlist();
+                 this.function_link_list.printlist();
                  MemoryMap.SP.push(name+" = "+val);
 
            }
           else
           {
-            console.log("function name  "+re[0]+"  fun argument "+re[1]); 
+            console.log("function name in esleeeeee  "+re[0]+"  fun argument "+re[1]); 
             var what=this.function_link_list.setparaval(re[0].replace(/\s+/g, ''),re[1]);
             //console.log(this.function_link_list.getpara()+"---------------------------------");
             this.variable_list.setvalue(this.function_link_list.getpara(),Number(re[1]));
@@ -437,7 +513,7 @@
         }
       }
       
-
+      return check_val;
     },
 
     isvariable:function(variableline)
@@ -446,7 +522,7 @@
      console.log(var_array+" variables ");
      for (i=0;i<var_array.length;i++)
      {
-       console.log(i);
+       //console.log(i);
        if (variableline.includes(var_array[i]))
        {
          console.log("variable line");
@@ -474,18 +550,42 @@
     getvar_name_values:function(text)
     {
       
-      if (text[0]=='i' && text[1]=='n' && text[2]=='t' &&  text[text.length-1]==';' || text[text.length-1]==')' )
+      if (text[0]=='i' && text[1]=='n' && text[2]=='t' &&  text[text.length-1]==';')
       {
         var name="";
         for (i=3;i<text.length;i++)
         {
-          if (text[i] !=';' || text[i]!= ')')
+          if (text[i] !=';' && text[i]!= '=')
           {
             name=name+text[i];
+            
+          }
+          else
+          {
+            break;
           }
         }
+
+        console.log(name , " name of variable");
+        if (text.includes('='))
+        {
+          var val="";
+          console.log(name.length);
+          for (i=name.length+4;i<text.length-1;i++)
+          {
+            console.log(text[i]);
+            val=val+text[i];
+          }
+          console.log("true" , text," initilzing" , name , "      =   " , val);
+          this.variable_list.add(name,val,"int");
+        }
+        else
+        {
+          this.variable_list.add(name,"nan","int");
+        }
+        this.variable_list.printlist();
       }
-      if (text[0]=='f' && text[1]=='l' && text[2]=='o' && text[2]=='a' && text[2]=='t'&&  text[text.length-1]==")" || text[text.length-1]==';' && text[text.length-1]==',' )
+      if (text[0]=='f' && text[1]=='l' && text[2]=='o' && text[2]=='a' && text[2]=='t'&&  text[text.length-1]==';')
       {
 
       }
@@ -510,80 +610,23 @@
     }, 
     parsearthmetic:function(text)
     {
-      var operandarray=[];
-      var string="";
-      var operatorarray=[];
-      if(this.arthimeticline(text))
-      {
-        for (i=0;i<text.length;i++)
-        {
-          
-          if (text[i]=='+' || text[i]=='-' || text[i]=='*' || text[i]=='/')
-          {
-            operandarray.push(string);
-            operatorarray.push(text[i]);
-            string="";
-          }
-          else
-          {
-            string=string+text[i];
-          }
-          
-        }
-        string = "";
-        string1="";
-        i=text.length-1;
-        while(text[i] !='+' && text[i]!='-' && text[i]!='*' && text[i]!='/')
-        {
-          if (text[i] != ';' && text[i]!=')')
-          {
-            string=string+text[i];
-          }
-          i--;
-        }
-        for (i=string.length-1;i>=0;i--)
-        {
-          string1=string1+string[i];
-        }
-        operandarray.push(string1);
-      }
-      console.log(operandarray);
-      console.log(operatorarray);
+    
 
-      for (i=0;i<operatorarray.length;i++)
-      {
-        var arthstring="";
-      if (Number(operandarray[i]))
-      {
-        console.log(true+"Maryam");
-        var op1=Number(operandarray[i]);
-        console.log(operandarray[i]);
-        console.log(op1);
-        arthstring=arthstring+op1;
-
-      }
-      else
-      {
-        op1=this.variable_list.getvalue(operandarray[i]);
-        arthstring=arthstring+op1;
-      }
-      arthstring=arthstring+operatorarray[i];
-
-      if (Number(operandarray[i+1]))
-      {
-        console.log(true+"Maryam");
-        op2=Number(operandarray[i+1]);
-        arthstring=arthstring+op2;
-      }
-      else
-      {
-        op2=this.variable_list.getvalue(operandarray[i+1]);
-        arthstring=arthstring+op2;
-      }  
-    }
-    var value=math.eval(arthstring);
-  console.log(value+  " mariaaa");
+  console.log(text);
+  if(this.isvariable(text))
+  {
+    var var_name=this.getvariable_name(text);
+    var name=this.variable_list.getvalue(var_name);
+    arthstring=text.replace(var_name,name);
+  }
+  else
+  {
+    arthstring=text;
+  }
   console.log(arthstring + " expression");
+  var value=math.eval(arthstring);
+  console.log(value+  " mariaaa");
+  
   return value;
     },
     parsecode:function(text)
@@ -598,9 +641,29 @@
       var func_array=[];
       var ip_set=false;
       for (var i=0;i<token.length;i++)
-      { //this.getvar_name_values(token[i].replace(/\s+/g, ''))
+      { this.getvar_name_values(token[i].replace(/\s+/g, ''))
+         
+           
+
         this.code_line.push(token[i]);
         var temp=this.code_line[i].replace(/\s+/g, '');
+        if (temp.includes('=') && this.isvariable(temp) && !temp.includes('"'))
+        {
+          console.log(temp);
+          var variable=this.getvariable_name(temp);
+          console.log(variable+" outttt");
+            var value="";
+            console.log(temp.indexOf(variable));
+            for (r=temp.indexOf(variable)+variable.length+1;r<temp.length-1;r++)
+            {
+              value=value+temp[r];
+
+            }
+            console.log(value+"  inidessssssssssssssssss")
+            this.variable_list.setvalue(variable,value);
+
+          
+        }
         if (temp[0]=='i' && temp[1]=='n' && temp[2]=='t' && temp[3]=='m' && temp[4]=='a' && temp[5]=='i' && temp[6]=='n' ) // check for main
         {
           MemoryMap.IP=i+1;
@@ -679,6 +742,13 @@
       $("#out").text(val);
     }
   }
+  
+  var Output={
+    sendToOut:function(val)
+    {
+      $("#out").text(val);
+    }
+  }
 
   </script>
 
@@ -695,9 +765,7 @@
      function runFunction() 
 
      {
-      console.log (math.eval('(2+1)*8/4.2'));
-       TextEditor.if_line=0;
-       TextEditor.else_line=0;
+      
        MemoryMap.SP=[];
        Parser.check4=false;
        TextEditor.getCode();
@@ -706,6 +774,8 @@
        MemoryMap.sendIP();
        MemoryMap.sendDataValues();
        MemoryMap.IP=MemoryMap.IP+1;
+     
+     //------------------------------------------------------aik or kam b kanrna hai-----------------------------------------------
 
      }
 
@@ -757,14 +827,15 @@ int factorial(int number)
     }
     else
     {
-    return number*factorial(number-1);
+     cout<<"number = " << number;  
+     return number*factorial(number-1);
     }
 }
 
 int main()
 {
-    int num=3;
-    cout<<factorial(3);  
+    int a=3;
+    cout<<factorial(a);  
     return 0;
 }
 </textarea>
