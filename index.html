@@ -18,8 +18,6 @@
 
  var TextEditor={
     codetext:"",
-    if_line:0,
-    else_line:0,
     getCode:function()
     {
       check3=true;
@@ -29,7 +27,8 @@
       $("#outputstack").text("");
 
       codetext=$("#editor").val();
-      Parser.parsecode(codetext);
+      return codetext;
+      
       
     },
     getLine:function(line)
@@ -47,7 +46,8 @@
       
       {
         
-        $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');          for (i=0;i<Parser.code_line.length;i++)
+        $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');         
+         for (i=0;i<Parser.code_line.length;i++)
           {
             if (i != MemoryMap.IP)
             {
@@ -75,6 +75,7 @@
     function_check:"",
     ParseCodeLine:function(tmp)
     {
+      //  change in the value of variables;
         MemoryMap.sendIP();
         MemoryMap.sendStackvalues();
         //MemoryMap.sendDataValues();
@@ -106,7 +107,7 @@
         tmp=tmp.replace(tmpret,this.return_val);
         console.log(tmp,'tmpppppp');
       }
-
+   
       if (tmp[0]=='c' && tmp[1]=='o' && tmp[2]=='u' && tmp[3]=='t' && tmp[4]=='<' && tmp[5]=='<' && !this.function_check)
       {
         console.log("cout statement ",tmp,this.code_line[MemoryMap.IP-1]);
@@ -281,7 +282,7 @@
      {
       var re=this.condition_if(cond);   // left , right, operator
            
-          var left=this.variable_list.getvalue(re[0]);
+          var left=this.variable_list.getvalue(re[0]);  //  add variable check and number check
           //console.log(re[0]+" if condition--- "+left);
           //this.variable_list.printlist(); 
           if (re[2]=='<')
@@ -610,8 +611,6 @@
     }, 
     parsearthmetic:function(text)
     {
-    
-
   console.log(text);
   if(this.isvariable(text))
   {
@@ -643,8 +642,6 @@
       for (var i=0;i<token.length;i++)
       { this.getvar_name_values(token[i].replace(/\s+/g, ''))
          
-           
-
         this.code_line.push(token[i]);
         var temp=this.code_line[i].replace(/\s+/g, '');
         if (temp.includes('=') && this.isvariable(temp) && !temp.includes('"'))
@@ -734,7 +731,7 @@
       {
         out1=out1+"  "+Parser.function_name_array[i]+"\n";
       }
-      out1=out1+"  "+variable_name;
+      out1=out1+"  "+variable_name; //   looooooooop lagna hai----------------------------------------------------------------
       $("#output").text(out1);
     },
     sendToOut:function(val)
@@ -768,8 +765,16 @@
       
        MemoryMap.SP=[];
        Parser.check4=false;
-       TextEditor.getCode();
+       var codetxt=TextEditor.getCode();
+       Parser.parsecode(codetxt);
        $("div.numberedtextarea-number.numberedtextarea-number-"+MemoryMap.IP).attr('style', 'background-color:#F9AA33');
+       for (i=0;i<Parser.code_line.length;i++)
+          {
+            if (i != MemoryMap.IP)
+            {
+              $("div.numberedtextarea-number.numberedtextarea-number-"+i).attr('style', 'background-color:#232F34');
+            }
+          }
        MemoryMap.sendStackvalues();
        MemoryMap.sendIP();
        MemoryMap.sendDataValues();
@@ -864,7 +869,7 @@ int main()
     
 </script>      
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="jquery.numberedtextarea.js"></script>
+<script src="inputcode.js"></script>
 <script>
 $('#editor').numberedtextarea();
 </script>

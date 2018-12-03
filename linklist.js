@@ -9,7 +9,8 @@ class Node
     }
 }
 
-class linklist{
+class linklist
+{
     constructor()
     {
         this.head = null;
