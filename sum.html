@@ -15,7 +15,6 @@
 <script src="Parser.js" type="text/javascript"></script>
 </head>
 
-
 <body bgcolor="#50636E">
     <h1 style="text-align:center; color: black;"><b>Recursive Learning </b></h1>  
     <div class="headings">
@@ -47,25 +46,27 @@
 #include <iostream>
 using namespace std;
 
-int factorial(int number)
+int sum(int number)
 {
     if (number<1)
     {
-        return 1;
+        return number;
     }
     else
     {
      cout<<"number = " << number;  
-     return number*factorial(number-1);
+     return number+sum(number-1);
     }
 }
 
 int main()
 {
-    int a=3;
-    cout<<factorial(a);  
+    int a;
+    a=5;
+    cout<<"sum = " <<sum(a);  
     return 0;
 }
+
 </textarea>
 
 

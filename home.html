@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #344955;
+    overflow-x: hidden;
+    /* padding-top: 20px; */
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px; 
+    text-decoration: none;
+    font-size: 20px;
+    color: #F9AA33;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+.sidenav a, .dropdown-btn1 {
+    padding: 6px 8px 6px 16px; 
+    text-decoration: none;
+    font-size: 20px;
+    color: #F9AA33;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color:#F9AA33;
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+
+.dropdown-container {
+    display: none;
+    background-color: #B4C1CC;
+    padding-left: 8px;
+}
+
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#recursion{
+    border-radius: 0%;
+    width: 300px; 
+}
+
+.titlebox{
+    width: 435px;
+    height: 77px;
+    padding-left: 108px;
+    background: rgb(33, 56, 75);
+    color: darkorange;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-top: 57px;
+    margin-left: 250px;
+    display: inline-block;
+}
+.main {
+    background-image:url("homeback.jpeg");
+    background-size: cover; 
+    margin-left: 290px; /* Same as the width of the sidenav */
+    height: 635px;
+    width: 79%;
+    display: inline-block;
+}
+
+.imagegif
+{
+    margin-top: 66px;
+    margin-left: 290px; /* Same as the width of the sidenav */
+    width: 73%;
+    /* width: 300px;  */
+}
+#imageanimation
+{
+    border-radius: 50%;
+    width: 500px;  
+}
+</style>
+
+</head>
+<body>
+
+<div class="sidenav">
+            <img id="recursion" src="recursion.jpg" alt="Avatar">    
+
+        
+  <a href="#about">Brief Description of Recursion</a>
+  <button class="dropdown-btn" >Basic Tutorial 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container" >
+            <a href="index.html">Factorial</a>
+            <a href="sum.html">Sum</a>
+          </div>
+  <a href="#services">Practice Recursion</a>
+  <a href="#clients">Turn To Recursion</a>
+  <button class="dropdown-btn">Advance Problem solving using Recursion
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container" >
+            <a href="#">Tree</a>
+            <a href="#">LinkedList</a>
+            <a href="#">Matrix Multiplication</a>
+          </div>
+  
+  
+</div>
+
+<div class="main">
+    <div class="titlebox">
+        <h1>RECURSIVE LEARNING</h1> 
+    </div>
+    <div class="imagegif">
+        <img src="visual-animation-recursion.gif" alt="error" id=imageanimation>
+    </div>
+</div>
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+console.log(dropdown);
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    var dropdo = document.getElementsByClassName("dropdown-btn");
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display == "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>
+

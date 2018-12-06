@@ -621,8 +621,8 @@
       this.function_name_array=[];
       this.function_line_array=[];
       this.code_line=[]; 
+
       var token=text.split("\n");
-      var func_array=[];
       var ip_set=false;
       for (var i=0;i<token.length;i++)
       { this.getvar_name_values(token[i].replace(/\s+/g, ''))
@@ -684,9 +684,6 @@
       this.variable_list.printlist();
       this.function_link_list.printlist();
     },
-  
-
-
   }
 
   var MemoryMap={
@@ -716,7 +713,13 @@
       {
         out1=out1+"  "+Parser.function_name_array[i]+"\n";
       }
-      out1=out1+"  "+variable_name; //   looooooooop lagna hai----------------------------------------------------------------
+      var tmp=Parser.variable_list.allvariable();
+      console.log(tmp+"data values variable ");
+      for (v=0;v<tmp.length;v++)
+      {
+        out1=out1+"  "+tmp[v]+"\n";
+      }
+
       $("#output").text(out1);
     },
     sendToOut:function(val)
