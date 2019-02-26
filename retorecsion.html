@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Return to Recursion</title>
+</head>
+<script src="retorecsion.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link href="jquery.numberedtextarea.css" rel="stylesheet" type="text/css">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+<body>
+
+
+<table style="width: 100%">
+    <tr>
+        <th>
+    <textarea id="editor">
+for (int i=4;i>0;i=i/2)
+{
+    for (int y=4;y>0;y--)
+    {
+        cout<<"*";
+    }
+        cout<<endl;
+}
+    </textarea>
+</th>
+<th>
+<textarea id="editor2" ></textarea>
+</th>
+            
+</tr>        
+</table>    
+
+<button id="turn" onclick="turnrecursion()" > Turn </button>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> 
+<script src="inputcode.js"></script>
+<script>
+$('#editor').numberedtextarea();
+$('#editor2').numberedtextarea();
+</script>
+</body>
+</html>

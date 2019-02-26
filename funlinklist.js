@@ -60,6 +60,25 @@ class funlinklist{
         return -1;
     }
 
+    getReturnType(element)
+    {
+        var count = 0;
+        var current= this.head;
+
+        while (current != null)
+        {
+            if (current.function_name==element)
+            {
+                console.log(current.return_type+" in getReturn value function");
+                return current.return_type;
+            }
+            count++;
+            current=current.next;
+
+        }
+        return -1;
+    }
+
     setparaval(element,val)
     {
         var count = 0;
@@ -80,10 +99,23 @@ class funlinklist{
         return -1;
 
     }
-    getpara()
+    getpara(element)
     {
-        var current=this.head; 
-        return current.parameter_name;   
+        var count = 0;
+        var current= this.head;
+
+        while (current != null)
+        {
+            if (current.function_name==element)
+            {
+                console.log(current.parameter_name+" in getReturn value function");
+                return current.parameter_name;
+            }
+            count++;
+            current=current.next;
+
+        }
+        return -1;  
     }
     
 

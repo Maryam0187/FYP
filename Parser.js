@@ -7,7 +7,7 @@
       $("#output").text("");
       $("#outputip").text("");
       $("#outputstack").text("");
-
+      $("#out").text(""); 
       codetext=$("#editor").val();
       return codetext;
       
@@ -37,9 +37,9 @@
           }
         
         var tmp=this.getLine(MemoryMap.IP-1);
-        Parser.ParseCodeLine(tmp); 
-        console.log(this.if_line);
-        MemoryMap.IP=MemoryMap.IP+1;
+        Parser.ParseCodeLine(tmp);
+          MemoryMap.IP=MemoryMap.IP+1;
+        
       }
     }
   }
@@ -48,7 +48,8 @@
     code_line:[],
     function_name_array:[],
     function_line_array:[],
-    check4:false, // for return statement 
+    check4:false, // for return statement
+    check5:false, 
     variable_list:"",
     function_link_list:"",
     return_check:false,
@@ -60,12 +61,27 @@
         MemoryMap.sendIP();
         MemoryMap.sendStackvalues();
         //MemoryMap.sendDataValues();
-      
+      if(this.check5)
+      {
+        MemoryMap.IP=MemoryMap.SP_line_number[MemoryMap.SP_line_number.length-1]-1;
+        console.log(MemoryMap.IP + "in check 5 " );
+        MemoryMap.SP_line_number.pop();
+        MemoryMap.SP.pop();
+        MemoryMap.SP.pop();
+
+        console.log("check5 set to flaseeeee", MemoryMap.SP_line_number.length);
+
+        if (MemoryMap.SP_line_number.length==0)
+        {
+          this.check5=false;
+          
+        }
+      }
       if (!this.check4)
       {
         this.function_check= this.isfunction(tmp);
       }
-      if(this.return_check)
+      if(this.return_check && !this.check5)
       {
         console.log("in side the return check");
         console.log(tmp);
@@ -78,7 +94,13 @@
             function_name=this.function_name_array[i];
           }
         }
-        console.log(resub);
+        console.log(resub , function_name+"in return check");
+        var retypr=Parser.function_link_list.getReturnType(function_name);
+        if (retypr=="void")
+        {
+          console.log("is void function");
+          this.check5=true;
+        }
         var fun_idx=resub.indexOf(function_name);
         var tmpret="";
         for (i=fun_idx;resub[i-1] !=')' ;i++ )
@@ -118,22 +140,28 @@
         {
           console.log(cout_array[k],"nnnnnnnnnnnnnn");
           var functiontmp=cout_array[k].replace(/\s+/g, '');
-          if (functiontmp[functiontmp.length-1]==';' && functiontmp[functiontmp.length-2]==')')
+          if (functiontmp[functiontmp.length-1]==';' && functiontmp[functiontmp.length-2]==')') // print function value
           {
             console.log(this.return_val+" innnnnnnn");
             str=str+this.return_val;
           }
-          else if(cout_array[k][0]=='"')
+          else if(cout_array[k][0]=='"') // print string
           {
             for (y=1;y<cout_array[k].length-2;y++)
             {
-              cout_value=cout_value+cout_array[k][y];
+              if(cout_array[k][y]!='"')
+              {
+                cout_value=cout_value+cout_array[k][y];
+              }
+              
             }
+            console.log(cout_value+" for pattern");
             str=str+cout_value;
             cout_value="";
           }
-         else if (this.isvariable(cout_array[k]))
+         else if (this.isvariable(cout_array[k])) // print variable value
          {
+           console.log("in the varaible");
           var var_name=this.getvariable_name(cout_array[k]);
           var var_val=this.variable_list.getvalue(var_name);
           cout_value=cout_array[k].replace(var_name,var_val);
@@ -147,27 +175,36 @@
           {
             cout_value=this.parsearthmetic(cout_value);
           }
+          
           str=str+cout_value;
+          console.log(str+"in the variable cout");
           cout_value="";
 
+        }
+        else if(cout_array[k][0]=='e' && cout_array[k][1]=='n' && cout_array[k][2]=='d' && cout_array[k][3]=='l')
+        {
+          console.log(str+" endl check");
+          str=str+'\n';
+          
         }
         else
         {
           str=str+cout_array[k];
           if (this.arthimeticline(str))
           {
-            str=this.parsearthmetic(str);
+            str=str+this.parsearthmetic(str);
           }
         }
 
         }
         
         var coutval=$("#out").val();
-        cout_value=coutval+'\n'+str;
+        cout_value=coutval+str;
         MemoryMap.sendToOut(cout_value);
       }
-      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4  && tmp[6]!=0)
+      if (tmp[0]=='r' && tmp[1]=='e' && tmp[2]=='t' && tmp[3]=='u' && tmp[4]=='r' && tmp[5]=='n' && this.check4  && tmp[6]!=0 && !this.check5)
       {
+        console.log("in the return statement ");
         this.return_check=true;
         var ret_val=""; // to get the value of return        
         for (i=6;i<tmp.length-1;i++)
@@ -448,7 +485,16 @@
           check3=false;
           MemoryMap.SP.push(this.function_name_array[i]);
           var re=Parser.function_call(functionline);
-          console.log(re[1]+"fdfjfdsfdsjfldsfldjfldsjfldsjfdlsjfds");
+          var resub=re[0];
+          var function_name;
+          for (i=0;i<this.function_name_array.length;i++)
+          {
+            if (resub.includes(this.function_name_array[i]))
+            {
+              function_name=this.function_name_array[i];
+            }
+          }
+          console.log(re[1]+"fdfjfdsfdsjfldsfldjfldsjfldsjfdlsjfds"+function_name);
           if (this.isvariable(re[1]))
            {
 
@@ -460,14 +506,15 @@
                 }
                 else
                 {
+                  
                   console.log(" not a arthmetic ");
                   val=this.variable_list.getvalue(name);
-                  console.log( val , this.function_link_list.getpara());
-                  name=this.function_link_list.getpara(); 
+                  console.log( val , this.function_link_list.getpara(function_name));
+                  name=this.function_link_list.getpara(function_name); 
                 }
                  
                  
-                 this.variable_list.setvalue(this.function_link_list.getpara(),val);
+                 this.variable_list.setvalue(this.function_link_list.getpara(function_name),val);
                  //console.log(name);
                  this.variable_list.printlist();
                  this.function_link_list.printlist();
@@ -477,14 +524,15 @@
           else
           {
             console.log("function name in esleeeeee  "+re[0]+"  fun argument "+re[1]); 
-            var what=this.function_link_list.setparaval(re[0].replace(/\s+/g, ''),re[1]);
+            var what=this.function_link_list.setparaval(function_name,re[1]);
             //console.log(this.function_link_list.getpara()+"---------------------------------");
-            this.variable_list.setvalue(this.function_link_list.getpara(),Number(re[1]));
-            console.log(what+"what----"+re[0]);
+            this.variable_list.setvalue(this.function_link_list.getpara(function_name,Number(re[1])));
+            console.log(what+"what----"+function_name);
             //var val=this.variable_list.getvalue("number");
             //console.log(val+"656654545");
-            this.variable_list.printlist();
-            MemoryMap.SP.push(this.function_link_list.getpara()+" = "+re[1]);
+            //this.variable_list.printlist();
+
+            MemoryMap.SP.push(this.function_link_list.getpara(function_name)+" = "+re[1]);
 
           }
                                       
