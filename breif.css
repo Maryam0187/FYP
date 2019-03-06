@@ -1,0 +1,11 @@
+.carousel-control-next {
+  filter: invert(100%);
+}
+.carousel-control-prev
+{
+  filter: invert(100%);
+}
+.carousel-indicators
+{
+  filter: invert(100%);
+}

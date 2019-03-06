@@ -177,7 +177,7 @@ function turnrecursion()
     "   }"+"\n"+
     "   else"+"\n"+
     "   {"+"\n"+
-    "       return;"+"\n"+
+    "       return;"+"\n" +
     "   }"+"\n"+
     "}";
     $("#editor2").text(oneditor);

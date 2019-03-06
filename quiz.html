@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz</title>
+    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="quiz.js"></script>
+    <link href="quiz.css" rel="stylesheet">
+
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background: #344955">
+                <div class="container">
+                  <a href="home.html">
+                      <i class="fas fa-home" style="margin-left:-100px;color: white" > Home </i>
+                  </a>
+                  <a class="navbar-brand" href="#">
+                    <img src="logo1.png" alt="">
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="breif.html">Breif Description</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          Basic Tutorial
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="sum.html">Sum</a>
+                          <a class="dropdown-item" href="index.html">Factorial</a>
+                        </div>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="pattern.html">Practice Recursion</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="retorecsion.html">Turn to Recursion</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+    <div class="container-fluid bg-info">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><span class="label label-warning" id="qid">2</span> THREE is CORRECT</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-3 col-xs-offset-5">
+                        <div id="loadbar" style="display: none;">
+                            <div class="blockG" id="rotateG_01"></div>
+                            <div class="blockG" id="rotateG_02"></div>
+                            <div class="blockG" id="rotateG_03"></div>
+                            <div class="blockG" id="rotateG_04"></div>
+                            <div class="blockG" id="rotateG_05"></div>
+                            <div class="blockG" id="rotateG_06"></div>
+                            <div class="blockG" id="rotateG_07"></div>
+                            <div class="blockG" id="rotateG_08"></div>
+                        </div>
+                    </div>
+
+                    <div class="quiz" id="quiz" data-toggle="buttons">
+                        <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
+                                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
+                                value="1">1 One</label>
+                        <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
+                                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
+                                value="2">2 Two</label>
+                        <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
+                                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
+                                value="3">3 Three</label>
+                        <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
+                                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
+                                value="4">4 Four</label>
+                    </div>
+                </div>        
+                <div class="modal-footer text-muted">
+                    <h2 id="answer"></h2>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
