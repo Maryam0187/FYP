@@ -1,8 +1,7 @@
 div.numberedtextarea-wrapper { position: relative; }
 
 div.numberedtextarea-wrapper textarea {
-  display: inline-block;
-  /* display: block; */
+  display: block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -37,7 +36,7 @@ div.numberedtextarea-number {
   solid #d3d3d3; 
   background-color: #6FBF44;
   width: 70%;
-  /* float: top; */
+  float: top;
   min-height: 300px;
   font-family: Courier, sans-serif;
   display: inline-block;
@@ -162,10 +161,9 @@ color: #fff;
     background-color: #20B2AA;
     border-radius: 15px; 
     float: left;
-    height: 450px;
+    height: 500px;
     width: 32%;
     margin-left: 2%;
-    margin-top: 1.25%;
 }
 
 .box2{
@@ -195,21 +193,21 @@ color: #fff;
 }
 .mm{
   display: inline-block;
-  margin-left: 5%;
-  color:black;
+  margin-left: 10%;
+  color: white;
   font-family: Lemon; 
 }
 .cr{
   display: inline-block;
-  margin-left: 28%;
-  color:black;
+  margin-left: 15%;
+  color: white;
   font-family: Lemon;
 }
 
 .oo{
   display: inline-block;
-  margin-left: 28%;
-  color:black;
+  margin-left: 12%;
+  color: white;
   font-family: Lemon;
 }
 
@@ -218,8 +216,8 @@ color: #fff;
 margin-left: 3.8%;
 margin-bottom: 1%;
 display: inline-block;
-padding: 5px 20px;
-font-size: 18px;
+padding: 11px 25px;
+font-size: 24px;
 cursor: pointer;
 text-align: center;
 text-decoration: none;
@@ -249,9 +247,8 @@ float: left;;
 #out{
   margin: 3%;
     height: 70%;
-    /* border: 3px; */
+    border: 3px;
     width: 100%;
-    border-color: #232F34;
-    /* background-color: #34495E; */
+    background-color: #34495E;
     color: #fff;
 }

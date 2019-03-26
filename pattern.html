@@ -29,66 +29,60 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">                  
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
   </head>
 
-<body style="background-color:white; padding: 8%">
+<body style="background-color:#50636E">
   <div>
-      <nav style="border: 2px" class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-          <div class="container">
-            <a class="navbar-brand" href="index.html">Recursive<span style="color:blue">Learning</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="oi oi-menu"></span> Menu
-            </button>
-    
-            <div class="collapse navbar-collapse" id="ftco-nav">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home1.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="breif.html" class="nav-link">Learn Recursion</a></li>
-                <li class="nav-item"><a href="pattern.html" class="nav-link">Sample Codes</a></li>
-                <li class="nav-item"><a href="retorecsion.html" class="nav-link">Code Conversion</a></li>
-                <li class="nav-item"><a href="schedule.html" class="nav-link">Practice</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Quiz</a></li>        
-              </ul>
-            </div>
-          </div>
-          </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background: #344955">
+      <div class="container">
+          <a href="home.html">
+              <i class="fas fa-home" style="margin-left:-100px;color: white" > Home </i>
+          </a>
+        <a class="navbar-brand" href="#">
+          <img src="logo1.png" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="breif.html">Breif Description</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Sample Codes
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="sum.html">Example 1</a>
+                <a class="dropdown-item" href="index.html">Example 2</a>
+              </div>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="pattern.html">Practice Recursion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="retorecsion.html">Turn to Recursion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="q.html">Quiz</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   </div>
   <div class="headings">
-    <p class="mm">MEMORY MAPPER</p>
-    <p class="cr">CODE EDITOR</p>
-    <!-- <button id="run_btn" onclick="runFunction()" class="runbutton">Next Line </button> 
-    <button id="run_btn" onclick="runFunction()" class="runbutton">Execute </button> -->
-    
-    
-    
-    <p class="oo">OUTPUT</h3>
+    <h3 class="mm">MEMORY MAPPER</h3>
+    <h3 class="cr">CODE EDITOR</h3>
+    <button id="run_btn" onclick="runFunction()" class="runbutton">Execute </button>
+    <h3 class="oo">OUTPUT</h3>
   </div>
   <div class="box">
-    
     <div class="output_div">
-       
 
       <textarea id="output" readonly> </textarea>
       </br>
@@ -103,8 +97,6 @@
   </div>
 
   <div class="box1">
-      <img style="height: 8%; width: 8%; float: right; " src="images/down.jpg" onclick="downfunction()" >
-      <img style="height: 8%; width: 8%; float: right; margin-left: 2%" src="images/play_.png" onclick="runFunction()" >
 <textarea id="editor">
 #include <iostream>
 using namespace std;
@@ -130,11 +122,7 @@ int main()
                 
 </textarea>
 <div>
-    <!-- <button id="run_btn" onclick="runFunction()" class="runbutton">Next Line </button> 
-    <button id="run_btn" onclick="runFunction()" class="runbutton">Execute </button>
-     -->
-     <!-- <button class="btn btn-primary btn-block" onclick=downfunction() >Next Line</button> -->
-
+    <button class="btn btn-primary btn-block" onclick=downfunction() >Next Line</button>
     <br>
   </div>
   </div>
