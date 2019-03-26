@@ -194,20 +194,20 @@ color: #fff;
 .mm{
   display: inline-block;
   margin-left: 10%;
-  color: white;
+  color: black;
   font-family: Lemon; 
 }
 .cr{
   display: inline-block;
-  margin-left: 15%;
-  color: white;
+  margin-left: 20%;
+  color: black;
   font-family: Lemon;
 }
 
 .oo{
   display: inline-block;
-  margin-left: 12%;
-  color: white;
+  margin-left: 25%;
+  color: black;
   font-family: Lemon;
 }
 
