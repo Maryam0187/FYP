@@ -155,3 +155,12 @@
     border-radius: 10px;
     box-shadow: 0 3px #27496d;
   }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  

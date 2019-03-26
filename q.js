@@ -6,80 +6,149 @@ let questionCounter = 0;
 let score = 0;
 let questionsArray = [
   {
-    question: "1. Consider the following recursive function fun(x, y). What is the value of:"+"fun(4, 3)" + 
-                "int fun(int x,inty)",
-    imge:"code.PNG",            
-    optionone: "3",
-    optiontwo: "5",
-    optionthree: "6",
-    optionfour: "7",
-    correctAnswer: "5"
+    question: "1. Consider the following recursive function fun(x, y). What is the value of fun(4, 3)"  ,
+    imge:"quiz/1.JPG",            
+    optionone: "12",
+    optiontwo: "13",
+    optionthree: "9",
+    optionfour: "10",
+    correctAnswer: "13"
   },
   {
-     question: "2. Which of the following function of Array object reverses the order of the elements of an array?",
-    imge:"codeeg.PNG",
-    optionone: "reverse()",
-    optiontwo: "push()",
-    optionthree: "reduceRight()",
-    optionfour: "reduce()",
-    correctAnswer: "reverse()"
+     question: "2.Recursion is a method in which the solution of a problem depends on ____________",
+     imge:"",
+    optionone: "Larger instances of different problems",
+    optiontwo: " Larger instances of the same problem",
+    optionthree: "Smaller instances of the same problem",
+    optionfour: "Smaller instances of different problems",
+    correctAnswer: "Smaller instances of the same problem"
   
   },
   {
-     question: "3. What statement supplies the value of a function?",
-    imge:"",
-    optionone: "continue",
-    optiontwo: "return",
-    optionthree: "cancel",
-    optionfour: "valueOf",
-    correctAnswer: "return"
+     question: "3. Consider the following recursive function fun(x). What is the value of fun(2)",
+    imge:"quiz/3.JPG",
+    optionone: "4",
+    optiontwo: "16",
+    optionthree: "Runtime Error",
+    optionfour: "8",
+    correctAnswer: "16"
     
   },
   {
-    question: "4. How do you find the number with the highest value of x and y?",
+    question: "4. Recursion is similar to which of the following?",
     imge:"",
-    optionone: "Math.max(x, y)",
-    optiontwo: "top(x, y)",
-    optionthree: "ceil(x, y)",
-    optionfour: "Math.ceil(x, y)",
-    correctAnswer: "Math.max(x, y)"
+    optionone: "Switch Case",
+    optiontwo: "Loop",
+    optionthree: "If-Else",
+    optionfour: "None of above",
+    correctAnswer: "Loop"
   },
   {
-    question: "5. Inside which HTML element do we put the JavaScript?",
-    imge:"",
-    optionone: "<javascript>",
-    optiontwo: "<js>",
-    optionthree: " <scripting>",
-    optionfour: "<script>",
-    correctAnswer: "<script>"
+    question: "5. What does the following function print for n = 25",
+    imge:"quiz/5.JPG",
+    optionone: "10011",
+    optiontwo: "11001",
+    optionthree: "10110",
+    optionfour: "10000",
+    correctAnswer: "10011"
   },
   {
-    question: "6. How does a FOR loop start?",
-    imge:"",
-    optionone: "for (i = 0; i <= 5)",
-    optiontwo: "for (i = 0; i <= 5; i++)",
-    optionthree: "for i = 1 to 5",
-    optionfour: "for (i <= 5; i++)",
-    correctAnswer: "for (i = 0; i <= 5; i++)"
+    question: "6. What does fun2() do in general?",
+    imge:"quiz/6.JPG",
+    optionone: "x * y",
+    optiontwo: "x + x * y",
+    optionthree: "x ^ y",
+    optionfour: "y ^ x",
+    correctAnswer: "y ^ x"
   },
    {
-    question: "7. How do you create a function in JavaScript?",
-    imge:"",
-    optionone: "function = myFunction()",
-    optiontwo: "function:myFunction()",
-    optionthree: "function myFunction()",
-    optionfour: "function - myFunction()",
-    correctAnswer: "function myFunction()"
+    question: "7. Which one of the following is TRUE?",
+    imge:"quiz/7.JPG",
+    optionone: "The function returns 0 for all values of j",
+    optiontwo: "The function prints the string something for all values of j",
+    optionthree: "The function returns 0 when j = 50",
+    optionfour: "The function will exhaust the runtime stack or run into an infinite loop when j = 50",
+    correctAnswer: "The function will exhaust the runtime stack or run into an infinite loop when j = 50"
   },
   {
-    question: "8. How to write an IF statement in JavaScript?",
+    question: "8. The value returned by function(1) is ",
+    imge:"quiz/9.JPG",
+    optionone: "9",
+    optiontwo: "7",
+    optionthree: "5",
+    optionfour: "6",
+    correctAnswer: "7"
+  },
+  {
+    question: "9.  Which of the following statements is true?",
     imge:"",
-    optionone: "if i = 5",
-    optiontwo: "if i == 5 then",
-    optionthree: "if i = 5 then",
-    optionfour: "if (i == 5)",
-    correctAnswer: "if (i == 5)"
+    optionone: "Recursion is always better than iteration",
+    optiontwo: "Recursion uses more memory compared to iteration",
+    optionthree: "Recursion uses less memory compared to iteration",
+    optionfour: "Iteration is always better and simpler than recursion",
+    correctAnswer: "Recursion uses more memory compared to iteration"
   }
+  ,
+  {
+    question: "10.  In general, in a recursive and non-recursive implementation of a problem (program) :",
+    imge:"",
+    optionone: "Both time and space complexities are better in recursive than in non-recursive program",
+    optiontwo: "Both time and space complexities are better in non-recursive than in recursive program",
+    optionthree: "Time complexity is better in recursive version but space complexity is better in non-recursive version of the program",
+    optionfour: "Space complexity is better in recursive version but time complexity is better in non-recursive version of the program",
+    correctAnswer: "Both time and space complexities are better in non-recursive than in recursive program"
+  }
+  ,
+  {
+    question: "11.  Predict the output of the following snippet :",
+    imge:"quiz/11.JPG",
+    optionone: "24",
+    optiontwo: "48",
+    optionthree: "16",
+    optionfour: "0",
+    correctAnswer: "24"
+  }
+  ,
+  {
+    question: "12.  What’s happen if base condition is not defined in recursion ?",
+    imge:"",
+    optionone: "Stack underflow",
+    optiontwo: " Stack Overflow",
+    optionthree: "Both mentioned above",
+    optionfour: "None of the above",
+    correctAnswer: "Stack Overflow"
+  }
+  ,
+  {
+    question: "13. Consider the following code snippet to answer What will happen when the above snippet is executed?",
+    imge:"quiz/13.JPG",
+    optionone: "The code will be executed successfully and no output will be generated",
+    optiontwo: " The code will be executed successfully and random output will be generated",
+    optionthree: "The code will show a compile time error",
+    optionfour: "The code will run for some time and stop when the stack overflows",
+    correctAnswer: "The code will run for some time and stop when the stack overflows"
+  }
+  ,
+  {
+    question: "14. The return value of fun(5) is ",
+    imge:"quiz/14.JPG",
+    optionone: "0",
+    optiontwo: " 71",
+    optionthree: "51",
+    optionfour: "21",
+    correctAnswer: "51"
+  }
+  ,
+  {
+    question: "15. If get(6) function is being called in main() then how many times will the get() function be invoked before returning to the main()? ",
+    imge:"quiz/15.JPG",
+    optionone: "15",
+    optiontwo: " 20",
+    optionthree: "23",
+    optionfour: "25",
+    correctAnswer: "25"
+  }
+
   ];
 
 let questionsCount = questionsArray.length;
@@ -205,6 +274,18 @@ function displayFinalScore(){
    $('.end-section h4').text(`Your Score is: ${score}/${questionsCount}`);
    $('.correct .count' ).text(score);
    $('.wrong .count').text(questionsCount - score);
+   if (score<=5)
+   {
+    $('.end-section #result').text("Your Performance is weak You need to practice more")
+   }
+   if(score<=10 && score>5)
+   {
+    $('.end-section #result').text("Your Performance is Average You need to do little bit more practice !")
+   }
+   if (score<=15 && score>10)
+   {
+    $('.end-section #result').text("Your Performance is Good. Keep it up!")
+   }
    resetQuiz();
 }
 

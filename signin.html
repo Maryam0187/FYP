@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>RegistrationForm</title>
+		<title>Sign in</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<!-- MATERIAL DESIGN ICONIC FONT -->
 		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-
-		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="css/style.css">
+		<script src="signin.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  
 	</head>
 
 	<body>
@@ -19,18 +19,18 @@
 				<div class="image-holder">
 					<img src="images/lpl.jpg" alt="" style="width: 500px;height:500px ">
 				</div>
-				<form action="home.html">
+				<form id="Sform">
 					<h3>Sign In</h3>
 						<div class="form-wrapper">
-						<input type="text" placeholder="Username" class="form-control">
+						<input  id="Sname" type="text" placeholder="Username" class="form-control">
 						<i class="zmdi zmdi-account"></i>
 					</div>
 					<div class="form-wrapper">
-						<input type="password" placeholder="Password" class="form-control">
+						<input id="Spassword" type="password" placeholder="Password" class="form-control">
 						<i class="zmdi zmdi-lock"></i>
 					</div>
 					
-					<button>Sign In
+					<button onclick="signbutton()">Sign In
 						<i class="zmdi zmdi-arrow-right"></i>
 					</button>
 				</form>

@@ -50,7 +50,7 @@ var Parser = {
   function_check: "",
   ParseCodeLine: function (tmp) {
     //  change in the value of variables;
-    old=MemoryMap.SP.length;
+    old = MemoryMap.SP.length;
     MemoryMap.sendIP();
     MemoryMap.sendStackvalues();
     //MemoryMap.sendDataValues();
@@ -105,8 +105,7 @@ var Parser = {
           cout_array.push(cout_value);
           i = i + 1;
           cout_value = "";
-        }
-        else {
+        } else {
 
           cout_value = cout_value + this.code_line[MemoryMap.IP - 1][i];
         }
@@ -124,8 +123,7 @@ var Parser = {
         {
           console.log(this.return_val + " innnnnnnn");
           str = str + this.return_val;
-        }
-        else if (cout_array[k][0] == '"') // print string
+        } else if (cout_array[k][0] == '"') // print string
         {
           for (y = 1; y < cout_array[k].length - 2; y++) {
             if (cout_array[k][y] != '"') {
@@ -136,8 +134,7 @@ var Parser = {
           console.log(cout_value + " for pattern");
           str = str + cout_value;
           cout_value = "";
-        }
-        else if (this.isvariable(cout_array[k])) // print variable value
+        } else if (this.isvariable(cout_array[k])) // print variable value
         {
           console.log("in the varaible");
           var var_name = this.getvariable_name(cout_array[k]);
@@ -156,13 +153,11 @@ var Parser = {
           console.log(str + "in the variable cout");
           cout_value = "";
 
-        }
-        else if (cout_array[k][0] == 'e' && cout_array[k][1] == 'n' && cout_array[k][2] == 'd' && cout_array[k][3] == 'l') {
+        } else if (cout_array[k][0] == 'e' && cout_array[k][1] == 'n' && cout_array[k][2] == 'd' && cout_array[k][3] == 'l') {
           console.log(str + " endl check");
           str = str + '\n';
 
-        }
-        else {
+        } else {
           str = str + cout_array[k];
           if (this.arthimeticline(str)) {
             str = str + this.parsearthmetic(str);
@@ -215,8 +210,7 @@ var Parser = {
       //console.log("indide ppppppppppppppppppppppppppps");
 
 
-    }
-    else {
+    } else {
       this.return_check = false;
     }
     if (tmp[0] == 'r' && tmp[1] == 'e' && tmp[2] == 't' && tmp[3] == 'u' && tmp[4] == 'r' && tmp[5] == 'n' && tmp[6] == 0) {
@@ -225,11 +219,15 @@ var Parser = {
       MemoryMap.IP = MemoryMap.SP_line_number[MemoryMap.SP_line_number.length - 1] - 1;
       MemoryMap.SP_line_number.pop();
       MemoryMap.SP.pop();
+      setTimeout(function () {
+        $('#out').css('background', '#34495E').focus(); //<--add focus too
+      }, 1000);
+      $('#out').css('background', '#F6D855');
     }
 
     if (tmp[0] == 'i' && tmp[1] == 'f') {
 
-      if (!Parser.check_if_condition(this.code_line[MemoryMap.IP - 1]))  // if condition false
+      if (!Parser.check_if_condition(this.code_line[MemoryMap.IP - 1])) // if condition false
       {
         console.log("inside the check condition");
         //console.log("variable name ", variable_name);
@@ -247,8 +245,7 @@ var Parser = {
 
         }
 
-      }
-      else  // if condition true
+      } else // if condition true
       {
         Parser.check4 = true;
       }
@@ -259,9 +256,9 @@ var Parser = {
   },
 
   check_if_condition: function (cond) {
-    var re = this.condition_if(cond);   // left , right, operator
+    var re = this.condition_if(cond); // left , right, operator
 
-    var left = this.variable_list.getvalue(re[0]);  //  add variable check and number check
+    var left = this.variable_list.getvalue(re[0]); //  add variable check and number check
     //console.log(re[0]+" if condition--- "+left);
     //this.variable_list.printlist(); 
     if (re[2] == '<') {
@@ -283,8 +280,7 @@ var Parser = {
       else
         return false;
     }
-  }
-  ,
+  },
   condition_if: function (if_line) {
     console.log(if_line);
     var if_cond = if_line.replace(/\s+/g, '');
@@ -304,13 +300,10 @@ var Parser = {
         if (if_cond[i] == '=') {
           oper = "==";
           i = i + 1;
-        }
-
-        else if (if_cond[i] == '!') {
+        } else if (if_cond[i] == '!') {
           oper = "!=";
           i = i + 1;
-        }
-        else {
+        } else {
           oper = if_cond[i];
         }
 
@@ -323,8 +316,7 @@ var Parser = {
     }
     console.log(left_operand + " " + right_operand + " " + oper);
     return [left_operand, right_operand, oper];
-  }
-  ,
+  },
   function_call: function (call_function) {
     var fun = call_function;
     fun = fun.replace(/\s+/g, '');
@@ -335,8 +327,7 @@ var Parser = {
     for (var i = 0; i < fun.length - 2; i++) {
       if (fun[i] != '(' && check == false) {
         fun_name = fun_name + fun[i];
-      }
-      else {
+      } else {
         if (check == true) {
           fun_arg = fun_arg + fun[i]
         }
@@ -348,8 +339,7 @@ var Parser = {
     return [fun_name, fun_arg];
 
 
-  }
-  ,
+  },
   function_definition: function (fun_line) {
     var temp = fun_line;
     var func_name = temp.replace(/\s+/g, '');
@@ -367,32 +357,26 @@ var Parser = {
         console.log(return_type);
         check1 = 2;
         i = i + 2;
-      }
-      else if (func_name[i] == 'v' && func_name[i + 1] == 'o' && func_name[i + 2] == 'i' && func_name[i + 3] == 'd' && check1 == 3) {
+      } else if (func_name[i] == 'v' && func_name[i + 1] == 'o' && func_name[i + 2] == 'i' && func_name[i + 3] == 'd' && check1 == 3) {
         return_type = "void";
         i = i + 3;
         check1 = 2;
         console.log(return_type + "return type ");
-      }
-
-      else if (func_name[i] != '(' && check1 == 2) {
+      } else if (func_name[i] != '(' && check1 == 2) {
         fun_name_def = fun_name_def + func_name[i];
       }
       if (func_name[i] == '(' && check1 == 2) {
         check1 = 4;
         //console.log(fun_name_def + " in check");
-      }
-      else if (check1 == 4 && func_name[i] != '(') {
+      } else if (check1 == 4 && func_name[i] != '(') {
 
         if (func_name[i] == 'i' && func_name[i + 1] == 'n' && func_name[i + 2] == 't') {
           parameter_type = "int";
           i = i + 2
-        }
-        else if (func_name[i] == 'v' && func_name[i + 1] == 'o' && func_name[i + 2] == 'i' && func_name[i + 3] == 'd') {
+        } else if (func_name[i] == 'v' && func_name[i + 1] == 'o' && func_name[i + 2] == 'i' && func_name[i + 3] == 'd') {
           parameter_type = "void";
           i = i + 3;
-        }
-        else if (func_name[i] != ')') {
+        } else if (func_name[i] != ')') {
           parameter_name = parameter_name + func_name[i];
         }
 
@@ -430,8 +414,7 @@ var Parser = {
           var name = this.getvariable_name(re[1].replace(/\s+/g, ''));
           if (this.arthimeticline(re[1])) {
             val = this.parsearthmetic(re[1]);
-          }
-          else {
+          } else {
 
             console.log(" not a arthmetic ");
             val = this.variable_list.getvalue(name);
@@ -446,11 +429,10 @@ var Parser = {
           this.function_link_list.printlist();
           MemoryMap.SP.push(name + " = " + val);
 
-        }
-        else {
+        } else {
           console.log("function name in esleeeeee  " + re[0] + "  fun argument " + re[1]);
           var what = this.function_link_list.setparaval(function_name, re[1]);
-          console.log(this.function_link_list.getpara()+"---------------------------------");
+          console.log(this.function_link_list.getpara() + "---------------------------------");
           this.variable_list.setvalue(this.function_link_list.getpara(function_name), Number(re[1]));
           console.log(what + "what----" + function_name);
           //var val=this.variable_list.getvalue("number");
@@ -472,7 +454,7 @@ var Parser = {
   },
 
   isvariable: function (variableline) {
-    console.log(variableline+" is variable ")
+    console.log(variableline + " is variable ")
     var var_array = this.variable_list.allvariable();
     console.log(var_array + " variables ");
     for (i = 0; i < var_array.length; i++) {
@@ -505,8 +487,7 @@ var Parser = {
         if (text[i] != ';' && text[i] != '=') {
           name = name + text[i];
 
-        }
-        else {
+        } else {
           break;
         }
       }
@@ -521,8 +502,7 @@ var Parser = {
         }
         console.log("true", text, " initilzing", name, "      =   ", val);
         this.variable_list.add(name, val, "int");
-      }
-      else {
+      } else {
         this.variable_list.add(name, "nan", "int");
       }
       this.variable_list.printlist();
@@ -553,9 +533,7 @@ var Parser = {
       var var_name = this.getvariable_name(text);
       var name = this.variable_list.getvalue(var_name);
       arthstring = text.replace(var_name, name);
-    }
-
-    else {
+    } else {
       arthstring = text;
     }
 
@@ -608,13 +586,11 @@ var Parser = {
         console.log(" function line" + i);
         //this.function_call(this.code_line[i]);
 
-      }
-      else {
+      } else {
         var tmp = this.code_line[i].replace(/\s+/g, '');
         if (tmp[0] == 'i' && tmp[1] == 'f' && tmp[tmp.length - 1] == ')') {
           this.condition_if(this.code_line[i]);
-        }
-        else if (tmp[tmp.length - 1] == ')' && ip_set == false) {
+        } else if (tmp[tmp.length - 1] == ')' && ip_set == false) {
           var re = this.function_definition(this.code_line[i]);
 
           this.function_name_array.push(re[1].replace(/\s+/g, ''));
@@ -644,22 +620,21 @@ var MemoryMap = {
 
     }
     $("#outputstack").text(out);
-    if(old!=nev)
-    {
-      nev=old;
+    if (old != nev) {
+      nev = old;
       setTimeout(function () {
         $('#outputstack').css('background', '#0465B2').focus(); //<--add focus too
-    }, 1000);
-    $('#outputstack').css('background', '#F6D855');
+      }, 1000);
+      $('#outputstack').css('background', '#F6D855');
     }
 
   },
   sendIP: function () {
     $("#outputip").text("\n" + "  IP = " + MemoryMap.IP);
-       setTimeout(function () {
-            $('#outputip').css('background', '#03A45E').focus(); //<--add focus too
-        }, 1000);
-        $('#outputip').css('background', '#F6D855');
+    setTimeout(function () {
+      $('#outputip').css('background', '#03A45E').focus(); //<--add focus too
+    }, 1000);
+    $('#outputip').css('background', '#F6D855');
 
   },
   sendDataValues: function () {
@@ -688,6 +663,7 @@ var Output = {
 
 var old;
 var nev;
+
 function runFunction() {
 
   MemoryMap.SP = [];
@@ -705,8 +681,8 @@ function runFunction() {
   MemoryMap.sendIP();
   MemoryMap.sendDataValues();
   MemoryMap.IP = MemoryMap.IP + 1;
-  old=MemoryMap.SP.length;
-  nev=MemoryMap.SP.length;
+  old = MemoryMap.SP.length;
+  nev = MemoryMap.SP.length;
 
 }
 

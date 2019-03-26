@@ -13,7 +13,7 @@ class tokenizefor{
 function turnrecursion()
 {
     var forarray=[];
-    var code=$("#editor").val();
+    var code=$("#editor3").val();
     var text=code.split("\n");
     var a=0;
     //  ++++++++++++++++++++++tokenize for statement++++++++++++++++++++++++ 
@@ -73,6 +73,67 @@ function turnrecursion()
 
     console.log(forarray.length);
     // ++++++++++++++++++++++++++++removing bracket++++++++++++++++++++++++++++++
+if (forarray.length==1)
+{
+    var body1="";
+    for (i=0;i<forarray[0].body.length;i++)
+    {
+        if(forarray[0].body[i]!='}' && forarray[0].body[i] !="{")
+        {
+            body1=body1+forarray[0].body[i] + "\n";
+        }
+    }
+    var fun1_arg="";
+    if (forarray[0].increment.includes("--"))
+    {
+        fun1_arg=forarray[0].variable_name+"-1";
+    }
+    else if (forarray[0].increment.includes("++"))
+    {
+        fun1_arg=forarray[0].variable_name+"+1";
+    }
+    else
+    {
+        console.log("in else");
+        var tmp="";
+        var check=false;
+        for (i=0;i<forarray[0].increment.length;i++)
+        {
+            console.log(forarray[0].increment[i]);
+
+            if(check)
+            {
+                tmp=tmp+forarray[0].increment[i];
+            }
+            if(forarray[0].increment[i]=='=')
+            {
+                check=true;
+            }
+
+        }
+        fun1_arg=tmp;
+
+    }
+
+    var oneditor="void function(int "+forarray[0].variable_name+")"+ "\n" +
+    "{"+ "\n" +
+    "   if ("+forarray[0].condition+")"+"\n"+
+    "   {"+"\n"+
+    "       "+body1+"\n"+
+    "       function("+fun1_arg+");"+"\n"+
+    "   }"+"\n"+
+    "   else"+"\n"+
+    "   {"+"\n"+
+    "       return;"+"\n" +
+    "   }"+"\n"+
+    "}";
+    $("#editor2").text(oneditor);
+    console.log(forarray);
+}
+
+
+else
+{
     var body1="";
     for (i=0;i<forarray[0].body.length;i++)
     {
@@ -156,7 +217,7 @@ function turnrecursion()
     console.log(body1+"checking body-------------");
     var oneditor="void function (int "+forarray[1].variable_name+")" + " \n" + 
     "{"+ "\n" +
-    "   if ("+forarray[1].variable_name+">0)" +"\n"+
+    "   if ("+forarray[1].condition+")" +"\n"+
     "   {" + "\n"+
     "       "+body2+ "\n"+
     "       function("+fun2_arg+");"+"\n"+
@@ -166,10 +227,10 @@ function turnrecursion()
     "       return;"+"\n"+
     "   }"+"\n"+
     "}"+"\n"+"\n"+
-
+     
     "void function2 (int "+forarray[0].variable_name+")"+ "\n" +
     "{"+ "\n" +
-    "   if ("+forarray[0].variable_name+" > 0)"+"\n"+
+    "   if ("+forarray[0].condition+")"+"\n"+
     "   {"+"\n"+
     "       function("+forarray[1].starting_value+");"+"\n"+
     "       "+body1+"\n"+
@@ -182,4 +243,5 @@ function turnrecursion()
     "}";
     $("#editor2").text(oneditor);
     console.log(forarray);
+}
 }

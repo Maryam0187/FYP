@@ -40,7 +40,8 @@ div.numberedtextarea-number {
   min-height: 300px;
   font-family: Courier, sans-serif;
   display: inline-block;
-  font-size: 17px
+  font-size: 17px;
+  color: #fff;
 
 }
 #outputip{
@@ -52,7 +53,8 @@ div.numberedtextarea-number {
 
  font-family: Courier, sans-serif;
   display: inline-block;
-  font-size: 20px
+  font-size: 20px;
+  color: #fff;
 }
 
 #output::first-line {
@@ -73,17 +75,18 @@ div.numberedtextarea-number {
   font-family: Courier, sans-serif;
   display: inline-block;
   bottom: 0;
-font-size: 15px
+font-size: 15px;
+color: #fff;
 }
 
 #outputstack::first-line {
   font-family: Courier, sans-serif;
   font-size: 20px;
-  color:black;
+  color: #fff;
 
 }
 
-#editor{
+#editor3{
   background:#232F34; 
   color:#fff; 
   width:100%; 
@@ -106,6 +109,29 @@ font-size: 15px
   /* display: inline-block; */
   font-family: Courier, sans-serif;
   font-size: 15px;
+}
+#editor{
+  background:#232F34; 
+  color:#fff; 
+  width:100%; 
+  float: top;
+  height: 450px;
+  overflow: scroll;
+  /* margin: auto; */
+  /* display: inline-block; */
+  font-family: Courier, sans-serif;
+  font-size: 15px;
+}
+
+.box1{
+  border-color: white;
+    /* background-color:#20B2AA; */
+    /* border-radius: 15px; */
+    height: 450px;
+    width: 33%;
+    margin-left: 2%;
+    display: inline-block;
+    margin-bottom:5%; 
 }
 
 
@@ -140,15 +166,6 @@ font-size: 15px
     margin-left: 2%;
 }
 
-.box1{
-  border-color: white;
-    background-color:#20B2AA;
-    /* border-radius: 15px; */
-    height: 500px;
-    width: 33%;
-    margin-left: 2%;
-    display: inline-block;
-}
 .box2{
   border-color: white;
     /* background-color:#20B2AA; */
@@ -178,17 +195,20 @@ font-size: 15px
   display: inline-block;
   margin-left: 10%;
   color: white;
+  font-family: Lemon; 
 }
 .cr{
   display: inline-block;
   margin-left: 15%;
   color: white;
+  font-family: Lemon;
 }
 
 .oo{
   display: inline-block;
-  margin-left: 8%;
+  margin-left: 12%;
   color: white;
+  font-family: Lemon;
 }
 
 .runbutton{

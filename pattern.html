@@ -14,6 +14,7 @@
   <script src="funlinklist.js"></script>
   <script src="math.js" type="text/javascript"></script>
   <script src="Parser.js" type="text/javascript"></script>
+  <href="//fonts.googleapis.com/css?family=Lemon" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -28,7 +29,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">                  
-</head>
+
+  </head>
 
 <body style="background-color:#50636E">
   <div>
@@ -52,11 +54,11 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                Basic Tutorial
+                Sample Codes
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="sum.html">Sum</a>
-                <a class="dropdown-item" href="index.html">Factorial</a>
+                <a class="dropdown-item" href="sum.html">Example 1</a>
+                <a class="dropdown-item" href="index.html">Example 2</a>
               </div>
             </li>
             <li class="nav-item active">
@@ -76,7 +78,7 @@
   <div class="headings">
     <h3 class="mm">MEMORY MAPPER</h3>
     <h3 class="cr">CODE EDITOR</h3>
-    <button id="run_btn" onclick="runFunction()" class="runbutton">Run </button>
+    <button id="run_btn" onclick="runFunction()" class="runbutton">Execute </button>
     <h3 class="oo">OUTPUT</h3>
   </div>
   <div class="box">
@@ -95,33 +97,34 @@
   </div>
 
   <div class="box1">
-    <textarea id="editor">
+<textarea id="editor">
 #include <iostream>
 using namespace std;
 
-void Pattern(int number)
+void fun(int number)
 {
-    if (number<1)
+    if () // write base condition
     {
-        return ;
+        // write base case here
     }
     else
     {
-     cout<<" * "<<endl;  
-     Pattern(number-1);
+      // write recursive part
     }
 }
 
 int main()
 {
-    int a=4;
-    Pattern(a);  
+    // call recursive function here
     return 0;
 }
-
+            
+                
 </textarea>
-
-
+<div>
+    <button class="btn btn-primary btn-block" onclick=downfunction() >Next Line</button>
+    <br>
+  </div>
   </div>
 
   <div class="box2">
@@ -129,12 +132,13 @@ int main()
       <textarea id="out"></textarea>
 
       <div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="button" style="background:url('up.png')  center no-repeat; background-size: 100% 100%;"></button></div>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <button class="button" style="background:url('left.png')  center no-repeat; background-size: 100% 100%;"></button>
       <button class="button" id="down" onclick=downfunction() style="background:url('down.png')  center no-repeat; background-size: 100% 100%;"></button>
-      <button class="button" style="background:url('right.png')  center no-repeat; background-size: 100% 100%;"></button>
+      <button class="button" style="background:url('right.png')  center no-repeat; background-size: 100% 100%;"></button> -->
 
     </div>
 

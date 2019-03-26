@@ -1,0 +1,28 @@
+void function (int y) 
+{
+   if (y>0)
+   {
+       cout<<"*";
+
+       function(y-1);
+   }
+   else
+   {
+       return;
+   }
+}
+
+void function2 (int i)
+{
+   if (i > 0)
+   {
+       function(4);
+       cout<<endl;
+
+       function2(i/2);
+   }
+   else
+   {
+       return;
+   }
+}

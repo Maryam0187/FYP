@@ -1,0 +1,20 @@
+<script language="javascript">
+function Afunc(){
+
+console.log("function in ")
+var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+xmlhttp.open("POST", "localhost:3000/filedata/");
+xmlhttp.setRequestHeader("Content-Type", "application/json");
+xmlhttp.send(JSON.stringify({name:"John Rambo"}));}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+</head>
+<body>
+<form>
+<div>
+<input id="Button1" type="button" value="Write" onclick="Afunc()"/>
+</div> 
+</form>
+</body>
+</html>

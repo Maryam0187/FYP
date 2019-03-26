@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="background-color:#50636E">
     <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background: #344955">
         <div class="container">
             <a href="home.html">
@@ -29,16 +29,16 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="breif.html">Breif Description</a>
+                        <a class="nav-link" href="breif.html">Brief Description</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            Basic Tutorial
+                            Sample Codes
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="sum.html">Sum</a>
-                            <a class="dropdown-item" href="index.html">Factorial</a>
+                            <a class="dropdown-item" href="sum.html">Example 1</a>
+                            <a class="dropdown-item" href="index.html">Example 2</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -54,9 +54,13 @@
             </div>
         </div>
     </nav>
-    <main role="main">
-        <section class="start-section">
-            <p>Welcome </p>
+    <main role="main" >
+        <section class="start-section mt-5">
+            <p>Lets Test Your Learning </p>
+            <img src="quiz.png" style="width:400px">
+             <br>
+             <br>
+             <br>
             <input type="button" value="Start" class="start-button js-start-button">
         </section>
 
@@ -64,15 +68,13 @@
             <div class="progress-section">
                 <span class="question-count"></span>
                 <hr>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ_wbUm1vMiakLbNj1q4biA8lro-mtV_OjvS_wG6q-_9M5peKRBQ"
-                    alt="score board image" class="score-img">
                 <span class="score-card"></span>
             </div>
 
-            <div class="quiz-section">
+            <div class="quiz-section" >
                 <form class="questions-form">
                     <p></p>
-                    <img src="" style="width:100%"></img>
+                    <img src="" class="center" style="width:75% ";></img>
                     <label class="options">
                         <input id="option-one" type="radio" name="option-one">
                         <span></span>
@@ -114,6 +116,7 @@
                     alt="wrong-icon">
                 <span class="count"></span>
             </div>
+            <h4 id="result"></h4>
             <input type="button" class="startover-button js-startover-button" value="Start Over">
         </section>
     </main>
