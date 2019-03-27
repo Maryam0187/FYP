@@ -7,7 +7,7 @@ var TextEditor = {
     $("#outputip").text("");
     $("#outputstack").text("");
     $("#out").text("");
-    codetext = $("#editor").val();
+    codetext = $("#editor3").val();
     return codetext;
 
 
@@ -220,9 +220,9 @@ var Parser = {
       MemoryMap.SP_line_number.pop();
       MemoryMap.SP.pop();
       setTimeout(function () {
-        $('#out').css('background', '#34495E').focus(); //<--add focus too
+        $('#out').css('background', 'white').focus(); //<--add focus too
       }, 1000);
-      $('#out').css('background', '#F6D855');
+      $('#out').css('background', '#1A73B7');
     }
 
     if (tmp[0] == 'i' && tmp[1] == 'f') {
@@ -614,7 +614,7 @@ var MemoryMap = {
   SP: [],
   SP_line_number: [], // return to line number when pop  
   sendStackvalues: function () {
-    var out = "  Stack" + "\n" + "_____________" + "\n";
+    var out = "     Stack" + "\n" + "_______________________" + "\n";
     for (i = MemoryMap.SP.length - 1; i >= 0; i--) {
       out = out + "  " + MemoryMap.SP[i] + "\n";
 
@@ -623,22 +623,33 @@ var MemoryMap = {
     if (old != nev) {
       nev = old;
       setTimeout(function () {
-        $('#outputstack').css('background', '#0465B2').focus(); //<--add focus too
+        $('#outputstack').css('background', 'white').focus();
+        $('#outputstack').css('color', 'black').focus();
+        $('#outputstack').css('font-weight', 'normal').focus(); //<--add focus too
+
       }, 1000);
-      $('#outputstack').css('background', '#F6D855');
+      $('#outputstack').css('background', '#1A73B7');
+      $('#outputstack').css('color', 'white');
+      $('#outputstack').css('font-weight', 'bold');
+
+  
     }
 
   },
   sendIP: function () {
     $("#outputip").text("\n" + "  IP = " + MemoryMap.IP);
     setTimeout(function () {
-      $('#outputip').css('background', '#03A45E').focus(); //<--add focus too
+      $('#outputip').css('background', 'white').focus();
+      $('#outputip').css('color', 'black').focus();
+      $('#outputip').css('font-weight', 'normal').focus(); //<--add focus too
     }, 1000);
-    $('#outputip').css('background', '#F6D855');
+    $('#outputip').css('background', '#1A73B7');
+    $('#outputip').css('color', 'white');
+    $('#outputip').css('font-weight', 'bold');
 
   },
   sendDataValues: function () {
-    var out1 = "Data Segment" + "\n" + "____________" + "\n";
+    var out1 = "  Data Segment" + "\n" + "_________________" + "\n";
     for (i = 0; i < Parser.function_name_array.length; i++) {
       out1 = out1 + "  " + Parser.function_name_array[i] + "\n";
     }

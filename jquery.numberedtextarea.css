@@ -32,57 +32,57 @@ div.numberedtextarea-number {
 }
 
 #output{
-  border:3px 
-  solid #d3d3d3; 
-  background-color: #6FBF44;
+  border: 3px dashed #0465B2;
+  /* background-color: #6FBF44; */
   width: 70%;
-  float: top;
-  min-height: 300px;
+  min-height: 265px;
   font-family: Courier, sans-serif;
   display: inline-block;
   font-size: 17px;
-  color: #fff;
+  color:black;
+  margin-right: 46%;
+   
 
 }
 #outputip{
-  border:3px 
-  solid #d3d3d3; 
-  background-color: #03A45E;
+  border: 3px dashed #0465B2;
+  /* background-color: #03A45E; */
   width: 70%;
-  min-height: 100px;
-
- font-family: Courier, sans-serif;
+  min-height: 90px;
+  margin-top: 2%;
+  margin-right: 15%;
+  font-family: Courier, sans-serif;
   display: inline-block;
   font-size: 20px;
-  color: #fff;
+  color:black;
+  margin-right: 45%;
 }
 
 #output::first-line {
   font-family: Courier, sans-serif;
-  font-size: 17px;
-  color:white;
+  font-size: 18px;
+  color:black;
 
 }
 
 
 #outputstack{
-  border:3px 
-  solid #d3d3d3; 
-  background-color:#0465B2;
+  border: 3px dashed #0465B2;
+  /* background-color: #0465B2; */
   width: 70%;
-  float: top;
-  min-height: 400px;
+  min-height: 360px;
   font-family: Courier, sans-serif;
   display: inline-block;
   bottom: 0;
-font-size: 15px;
-color: #fff;
+  font-size: 15px;
+  color:black;
+  margin-left: 25%;
 }
 
 #outputstack::first-line {
   font-family: Courier, sans-serif;
-  font-size: 20px;
-  color: #fff;
+  font-size: 18px;
+  color:black;
 
 }
 
@@ -90,8 +90,7 @@ color: #fff;
   background:#232F34; 
   color:#fff; 
   width:100%; 
-  float: top;
-  min-height: 500px;
+  min-height: 480px;
   overflow: scroll;
   /* margin: auto; */
   /* display: inline-block; */
@@ -115,7 +114,7 @@ color: #fff;
   color:#fff; 
   width:100%; 
   float: top;
-  height: 450px;
+  min-height: 500px;
   overflow: scroll;
   /* margin: auto; */
   /* display: inline-block; */
@@ -123,16 +122,6 @@ color: #fff;
   font-size: 15px;
 }
 
-.box1{
-  border-color: white;
-    /* background-color:#20B2AA; */
-    /* border-radius: 15px; */
-    height: 450px;
-    width: 33%;
-    margin-left: 2%;
-    display: inline-block;
-    margin-bottom:5%; 
-}
 
 
 #myAnimation {
@@ -158,12 +147,11 @@ color: #fff;
 }
 .box{
   border-color: white;
-    background-color: #20B2AA;
+    /* background-color: #20B2AA; */
     border-radius: 15px; 
-    float: left;
+    /* float: left; */
     height: 500px;
-    width: 32%;
-    margin-left: 2%;
+    /* margin-left: 2%; */
 }
 
 .box2{
@@ -171,9 +159,18 @@ color: #fff;
     /* background-color:#20B2AA; */
     /* border-radius: 15px; */
     height: 500px;
-    width: 25%;
-    display: inline-block;
-    margin-left: 2%;
+    /* display: inline-block; */
+    /* margin-left: 2%; */
+    margin-right:7% 
+}
+.box1{
+  border-color: white;
+    /* background-color:#20B2AA; */
+    /* border-radius: 15px; */
+    height: 450px;
+    /* margin-left: 2%; */
+    /* display: inline-block; */
+    /* margin-bottom:5%;  */
 }
 
 .output_div{
@@ -199,7 +196,7 @@ color: #fff;
 }
 .cr{
   display: inline-block;
-  margin-left: 20%;
+  margin-left: 2%;
   color: black;
   font-family: Lemon;
 }
@@ -236,19 +233,14 @@ background-color: #34495E;
 box-shadow: 0 5px #666;
 transform: translateY(4px);
 }
-.movebuttons{
-float: left;;
-  margin-right: 4%;
-  margin-left: 3%;
-  margin-top: 1%;
-  height: 100%;
-  width: 100%;
-}
+
 #out{
-  margin: 3%;
-    height: 70%;
-    border: 3px;
-    width: 100%;
-    background-color: #34495E;
-    color: #fff;
+  margin-left: 3%;
+  height: 125px;
+  border: 3px solid #0465B2;
+  width: 90%;
+  /* background-color: #34495E; */
+  color:black;
+  box-shadow: 10px 10px 5px grey;
+
 }

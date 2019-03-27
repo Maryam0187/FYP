@@ -1,0 +1,14 @@
+void function(int y)
+{
+   if (y>0)
+   {
+       cout<<"*";
+cout<<endl;
+
+       function(y-1);
+   }
+   else
+   {
+       return;
+   }
+}

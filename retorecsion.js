@@ -1,4 +1,4 @@
-class tokenizefor{
+class tokenize_for{
     constructor()
     {
         this.starting_value="";
@@ -13,7 +13,7 @@ class tokenizefor{
 function turnrecursion()
 {
     var forarray=[];
-    var code=$("#editor3").val();
+    var code=$("#editor").val();
     var text=code.split("\n");
     var a=0;
     //  ++++++++++++++++++++++tokenize for statement++++++++++++++++++++++++ 
@@ -25,7 +25,7 @@ function turnrecursion()
         {
             var line=text[i].split(";");
             console.log(line);
-            forarray.push(new tokenizefor());
+            forarray.push(new tokenize_for());
             var tmp="";
             forarray[a].condition=line[1];
             for (y=7;line[0][y]!='=';y++)

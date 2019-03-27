@@ -54,7 +54,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" style="color:#F9AA33">
+                  aria-haspopup="true" aria-expanded="false" style="color:blue">
                   Sample Codes
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -78,89 +78,80 @@
       </nav>           
     </div>
   </br>
-  <div>
-      <div class="row">
-       <div class="col" style="margin-left:1%">
-           <div class="row">
-                <div class="col" style="border: 3px solid #e5dbdb; margin-left:2%;margin-right:2%">
-                        <h5 class="cr">CODE EDITOR</h5>
-                        <img  style="height: 100%; width: 4%; float: right; " src="images/forward.png" data-toggle="tooltip" title="Next Line" onclick="downfunction()" >
-                        <img style="height: 100%; width: 6%; float: right; margin-left: 2%" src="images/play.png" onclick="runFunction()" data-toggle="tooltip" title="Execute" >
-                        
-                    </div>
-           </div>
+  <div style="margin-left: 5%;margin-right: 5%">
+  </br>
+  <div class="row">
+    <div class="col">
+        <h5 class="mm">MEMORY MAPPER</h5>
+    </div>
+    <div class="col">
+        <h5 class="cr">CODE EDITOR</h5>
+        <img  style="height: 100%; width: 8%; float: right; " src="images/forward.png" data-toggle="tooltip" title="Next Line" onclick="downfunction()" >
+        <img style="height: 100%; width: 8%; float: right; margin-left: 2%" src="images/play.png" onclick="runFunction()" data-toggle="tooltip" title="Execute" >
         
-                <textarea id="editor3">
+    </div>
+    <div class="col">
+        <h5 class="oo">OUTPUT</h5>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="col">
+
+        <div class="box1">
+      
+            <textarea id="editor3">
 int sum(int number)
 {
-    if (number<1)
-    {
+  if (number<1)
+  {
     return number;
-    }
-    else
-    {
+  }
+  else
+  {
     cout<<"number = " << number;  
     return number+sum(number-1);
-    }
+  }
 }
 int main()
 {
-    int a;
-    a=5;
-    cout<<"sum = " <<sum(a);  
-    return 0;
+  int a;
+  a=5;
+  cout<<"sum = " <<sum(a);  
+  return 0;
 }
-                                                          </textarea>
+                          </textarea>
         
-            <!-- <div class="box1"> -->
-      
-                    
-                
-                                  <div>
-                        <!-- <button class="btn btn-primary btn-block" onclick=downfunction() >Next Line</button> -->
-                        <br>
-                      </div>
-                      <!-- </div> -->
-       </div>
-       <div class="col"> 
-            <!-- // first row -->
-       <div class="row"> 
-            <!-- //stack  -->
-       <div class="col"> 
-            <!-- <div class="stack_div"> -->
-                    <textarea id="outputstack" ; readonly>      Stack</textarea>
-              
-                  <!-- </div> -->
-       </div>
-       <div class="col"> <!--  var +ip -->
-         <div class="row"> <!-- var -->
-            <!-- <div class="output_div"> -->
-        <textarea id="output" readonly> Data Segement   </textarea>  
-                  <!-- </div> -->
-       </div>
-       <!-- ip -->
-       <div class="row"> 
-            <textarea id="outputip" readonly>   IP</textarea>
-       </div>
-
-        </div>
-
-        <!-- output -->
-
-       </div>
-       <div class="row">
-           <div class="col">
-            <div class="row">
-                <h5 style="margin-left:3%">Output</h5> </div>
+                          <div>
+                <!-- <button class="btn btn-primary btn-block" onclick=downfunction() >Next Line</button> -->
+                <br>
+              </div>
+              </div>
             
-            <div class="row">
-                    <textarea id="out"></textarea>
+    </div>
+    <div class="col">
+        <div class="box">
+            <div class="output_div">
+        
+              <textarea id="output" readonly> </textarea>
+              </br>
+              </br>
+              <textarea id="outputip" readonly></textarea>
             </div>
-       </div>`
-        </div>
+            <div class="stack_div">
+              <textarea id="outputstack" ; readonly> </textarea>
+        
+            </div>
+        
+          </div>
+          
       </div>
-       </div>
-      </div>
+
+<div class="col">
+    <div class="box2">
+        <textarea id="out"></textarea>
+    </div>
+</div>
   
   <script>
 
