@@ -59,8 +59,8 @@ div.numberedtextarea-number {
 }
 
 #output::first-line {
-  font-family: Courier, sans-serif;
-  font-size: 18px;
+  font-family: Lemon;
+  font-size: 20px;
   color:black;
 
 }
@@ -80,14 +80,14 @@ div.numberedtextarea-number {
 }
 
 #outputstack::first-line {
-  font-family: Courier, sans-serif;
-  font-size: 18px;
+  font-family: Lemon;
+  font-size: 20px;
   color:black;
 
 }
 
 #editor3{
-  background:#232F34; 
+  background:#1B75BA; 
   color:#fff; 
   width:100%; 
   min-height: 480px;
@@ -98,7 +98,7 @@ div.numberedtextarea-number {
   font-size: 15px;
 }
 #editor2{
-  background:#232F34; 
+  background:#1B75BA; 
   color:#fff; 
   width:100%; 
   float: top;
@@ -110,7 +110,7 @@ div.numberedtextarea-number {
   font-size: 15px;
 }
 #editor{
-  background:#232F34; 
+  background:#1B75BA; 
   color:#fff; 
   width:100%; 
   float: top;

@@ -614,7 +614,7 @@ var MemoryMap = {
   SP: [],
   SP_line_number: [], // return to line number when pop  
   sendStackvalues: function () {
-    var out = "     Stack" + "\n" + "_______________________" + "\n";
+    var out = "               Stack" + "\n" + "_______________________" + "\n";
     for (i = MemoryMap.SP.length - 1; i >= 0; i--) {
       out = out + "  " + MemoryMap.SP[i] + "\n";
 
@@ -649,7 +649,7 @@ var MemoryMap = {
 
   },
   sendDataValues: function () {
-    var out1 = "  Data Segment" + "\n" + "_________________" + "\n";
+    var out1 = "    Data Segment" + "\n" + "_________________" + "\n";
     for (i = 0; i < Parser.function_name_array.length; i++) {
       out1 = out1 + "  " + Parser.function_name_array[i] + "\n";
     }
