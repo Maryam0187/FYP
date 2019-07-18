@@ -28,15 +28,15 @@ div.numberedtextarea-line-numbers {
 div.numberedtextarea-number {
   padding-right: 6px;
   text-align: right;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 #output{
   border: 3px dashed #0465B2;
   /* background-color: #6FBF44; */
-  width: 70%;
+  width: 75%;
   min-height: 265px;
-  font-family: Courier, sans-serif;
+  font-family: Lemon;
   display: inline-block;
   font-size: 17px;
   color:black;
@@ -47,11 +47,11 @@ div.numberedtextarea-number {
 #outputip{
   border: 3px dashed #0465B2;
   /* background-color: #03A45E; */
-  width: 70%;
+  width: 54%;
   min-height: 90px;
   margin-top: 2%;
   margin-right: 15%;
-  font-family: Courier, sans-serif;
+  font-family: Lemon;
   display: inline-block;
   font-size: 20px;
   color:black;
@@ -69,9 +69,9 @@ div.numberedtextarea-number {
 #outputstack{
   border: 3px dashed #0465B2;
   /* background-color: #0465B2; */
-  width: 70%;
-  min-height: 360px;
-  font-family: Courier, sans-serif;
+  width: 65%;
+  min-height: 364px;
+  font-family: Lemon;
   display: inline-block;
   bottom: 0;
   font-size: 15px;
@@ -87,7 +87,7 @@ div.numberedtextarea-number {
 }
 
 #editor3{
-  background:#1B75BA; 
+  background:#1d4d7d; 
   color:#fff; 
   width:100%; 
   min-height: 480px;
@@ -95,10 +95,10 @@ div.numberedtextarea-number {
   /* margin: auto; */
   /* display: inline-block; */
   font-family: Courier, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
 }
 #editor2{
-  background:#1B75BA; 
+  background:#1d4d7d; 
   color:#fff; 
   width:100%; 
   float: top;
@@ -107,10 +107,10 @@ div.numberedtextarea-number {
   /* margin: auto; */
   /* display: inline-block; */
   font-family: Courier, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
 }
 #editor{
-  background:#1B75BA; 
+  background:#1d4d7d; 
   color:#fff; 
   width:100%; 
   float: top;
@@ -119,7 +119,7 @@ div.numberedtextarea-number {
   /* margin: auto; */
   /* display: inline-block; */
   font-family: Courier, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 
@@ -235,10 +235,10 @@ transform: translateY(4px);
 }
 
 #out{
-  margin-left: 3%;
+  margin-left: 13%;
   height: 125px;
   border: 3px solid #0465B2;
-  width: 90%;
+  width: 65%;
   /* background-color: #34495E; */
   color:black;
   box-shadow: 10px 10px 5px grey;

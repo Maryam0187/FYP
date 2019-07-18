@@ -1,10 +1,11 @@
-const correctAnswerIcon = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG7HVtoF91KK85ZKPlBL0wzdW8URDpziD2PRsFZm4awGyD2BS-";
-const wrongAnswerIcon= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyGk_AHvtphypbgsJNN6qI1qX7v1b2vRXBgLwgGMcSZ95oZqaqug";
-const warningIcon = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa7WP9E3LDA10kP2Rk2enw-_kjI-iJd4kny8yH2kTrPR8hgrwtBg";
 
-let questionCounter = 0;
-let score = 0;
-let questionsArray = [
+var quiz={
+  correctAnswerIcon : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG7HVtoF91KK85ZKPlBL0wzdW8URDpziD2PRsFZm4awGyD2BS-",
+  wrongAnswerIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyGk_AHvtphypbgsJNN6qI1qX7v1b2vRXBgLwgGMcSZ95oZqaqug",
+  warningIcon : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa7WP9E3LDA10kP2Rk2enw-_kjI-iJd4kny8yH2kTrPR8hgrwtBg",
+  questionCounter : 0,
+  score :0,
+  questionsArray : [
   {
     question: "1. Consider the following recursive function fun(x, y). What is the value of fun(4, 3)"  ,
     imge:"quiz/1.JPG",            
@@ -15,8 +16,8 @@ let questionsArray = [
     correctAnswer: "13"
   },
   {
-     question: "2.Recursion is a method in which the solution of a problem depends on ____________",
-     imge:"",
+    question: "2.Recursion is a method in which the solution of a problem depends on ____________",
+    imge:"",
     optionone: "Larger instances of different problems",
     optiontwo: " Larger instances of the same problem",
     optionthree: "Smaller instances of the same problem",
@@ -25,7 +26,7 @@ let questionsArray = [
   
   },
   {
-     question: "3. Consider the following recursive function fun(x). What is the value of fun(2)",
+    question: "3. Consider the following recursive function fun(x). What is the value of fun(2)",
     imge:"quiz/3.JPG",
     optionone: "4",
     optiontwo: "16",
@@ -148,171 +149,181 @@ let questionsArray = [
     optionfour: "25",
     correctAnswer: "25"
   }
+  ],
 
-  ];
-
-let questionsCount = questionsArray.length;
-
-function handleStartClick(){
-	$('.js-start-button').on('click',function(event){
-		console.log("handleStartClick() ran");
-		$('.progress-section').show();
-		$('.start-section').hide();
-		$('.end-section').hide();
-		$('.quiz-box').fadeIn("slow");
-		renderQuizBox(); 
-
-	});
-}
-
-// This function displays the quizz box with the question, options, 
-// score and question count
-function renderQuizBox(){
-  renderQuestionCount();
-  renderQuestion();
-  renderScore();
-}
-function renderScore(){
-  $(".progress-section .score-card").text(`${score}/${questionsCount}`);
-}
-function renderQuestionCount(){
-  $(".progress-section .question-count").text(`Question ${questionCounter+1} of ${questionsCount}`);
-}
-
-// This function renders a new question
-function renderQuestion(){
-  $(".questions-form p").text(questionsArray[questionCounter].question);
-  $(".questions-form img").attr("src",questionsArray[questionCounter].imge);
-  $(".questions-form #option-one").val(questionsArray[questionCounter].optionone);
-  $(".questions-form #option-two").val(questionsArray[questionCounter].optiontwo);
-  $(".questions-form #option-three").val(questionsArray[questionCounter].optionthree);
-  $(".questions-form #option-four").val(questionsArray[questionCounter].optionfour);
-   
-  $(".questions-form #option-one").next().text(questionsArray[questionCounter].optionone);
-  $(".questions-form #option-two").next().text(questionsArray[questionCounter].optiontwo);
-  $(".questions-form #option-three").next().text(questionsArray[questionCounter].optionthree);
-  $(".questions-form #option-four").next().text(questionsArray[questionCounter].optionfour);
-}
-
-function handleSubmitAnswer(){
-  $('.js-submit-button').on('click',function(event){
-    console.log("handleSubmitAnswer() ran");
-    let selectedOption = $('input[type=radio]:checked').val();
-    if(selectedOption === undefined) {
-       displayPopup(false, selectedOption);
-    }
-    else{
-     //reset radio button
-      $('input[type=radio]:checked').attr('checked',false);
-      checkAnswer(selectedOption);
-    }
- });
-}
-
-
-// This function checks whether the answer selected by the
-// user is correct or not
-function checkAnswer(selected){
-  let rightAnswer = questionsArray[questionCounter].correctAnswer;
+   handleStartClick:function(){
+    $('.js-start-button').on('click',function(event){
+      console.log("handleStartClick() ran");
+      $('.progress-section').show();
+      $('.start-section').hide();
+      $('.end-section').hide();
+      $('.quiz-box').fadeIn("slow");
+      QuizBox.renderQuizBox(); 
   
-  if(selected === rightAnswer){
-    score++;
-    displayPopup(true, rightAnswer);
-  } 
-  else{
-   displayPopup(false, rightAnswer);
+    });
+  },
+
+  handleSubmitAnswer:function(){
+    $('.js-submit-button').on('click',function(event){
+      console.log("handleSubmitAnswer() ran");
+      let selectedOption = $('input[type=radio]:checked').val();
+      if(selectedOption === undefined) {
+        QuizEvaluator.displayPopup(false, selectedOption);
+      }
+      else{
+       //reset radio button
+        $('input[type=radio]:checked').attr('checked',false);
+        QuizEvaluator.checkAnswer(selectedOption);
+      }
+   });
+  },
+
+  handlePopupClose: function(){
+    $('.js-close-button').on('click', function(event){
+      console.log("handlePopupClose() ran");
+      $('.popup-box').hide();
+      $('.feedback-section').hide();
+      $('.quiz-box').hide().fadeIn();
+      quiz.questionCounter++;
+      if(quiz.questionCounter < quiz.questionsArray.length) {
+         $('.quiz-box').fadeIn();
+         QuizBox.renderQuizBox();
+      }
+      else{
+        $('.quiz-box').hide();
+        QuizEvaluator.displayFinalScore();
+      }
+    });
+  },
+
+  handleStartOver:function(){
+    $('.js-startover-button').on('click',function(event){
+      console.log("handleStartOver() ran");
+      $('.end-section').hide();
+      $('.quiz-box').fadeIn();
+      QuizBox.renderQuizBox();
+    });
+  },  
+  
+  attemptQuiz: function()
+  {
+    $('.end-section').hide();
+    $('.progress-section').hide();
+    $('.quiz-box').hide();
+    $('.feedback-section').hide();
+    this.handleStartClick();
+    this.handleSubmitAnswer();
+    this.handlePopupClose();
+    this.handleStartOver();
+  }
+,
+  resetQuiz:function(){
+    this.questionCounter = 0;
+    this.score = 0;
   }
 }
 
+var  QuizBox={
+
+  renderScore:function(){
+    $(".progress-section .score-card").text(`${quiz.score}/${quiz.questionsArray.length}`);
+  },
+  renderQuestionCount:function(){
+    $(".progress-section .question-count").text(`Question ${quiz.questionCounter+1} of ${quiz.questionsArray.length}`);
+  },
+  
+  // This function renders a new question
+  renderQuestion:function(){
+    $(".questions-form p").text(quiz.questionsArray[quiz.questionCounter].question);
+    $(".questions-form img").attr("src",quiz.questionsArray[quiz.questionCounter].imge);
+    $(".questions-form #option-one").val(quiz.questionsArray[quiz.questionCounter].optionone);
+    $(".questions-form #option-two").val(quiz.questionsArray[quiz.questionCounter].optiontwo);
+    $(".questions-form #option-three").val(quiz.questionsArray[quiz.questionCounter].optionthree);
+    $(".questions-form #option-four").val(quiz.questionsArray[quiz.questionCounter].optionfour);
+     
+    $(".questions-form #option-one").next().text(quiz.questionsArray[quiz.questionCounter].optionone);
+    $(".questions-form #option-two").next().text(quiz.questionsArray[quiz.questionCounter].optiontwo);
+    $(".questions-form #option-three").next().text(quiz.questionsArray[quiz.questionCounter].optionthree);
+    $(".questions-form #option-four").next().text(quiz.questionsArray[quiz.questionCounter].optionfour);
+  }
+,
+  renderQuizBox:function()
+  {
+    this.renderQuestionCount(),
+    this.renderQuestion(),
+    this.renderScore()
+  }
+
+  
+}
+
+var QuizEvaluator={
+// This function checks whether the answer selected by the
+// user is correct or not
+checkAnswer:function(selected)
+{
+  var rightAnswer = quiz.questionsArray[quiz.questionCounter].correctAnswer;
+  
+  if(selected === rightAnswer){
+    quiz.score++;
+    this.displayPopup(true, rightAnswer);
+  } 
+  else{
+   this.displayPopup(false, rightAnswer);
+  }
+}
+,
 //This function gives feedback to the user whether 
 //the option selected in correct or wrong. 
 //It also alerts the user if no option is selected
-function displayPopup(statusFlag, answer){
+displayPopup:function(statusFlag, answer){
   $('.feedback-section').show();
   if(statusFlag){
-    $(".popup-box img").attr("src",correctAnswerIcon);
+    $(".popup-box img").attr("src",quiz.correctAnswerIcon);
     $(".popup-box #popup-text").text("You are right!");
     $(".popup-box").show();
   }
   else{
       if(answer === undefined) {
-         questionCounter--;
-         $(".popup-box img").attr("src",warningIcon);
+         quiz.questionCounter--;
+         $(".popup-box img").attr("src",quiz.warningIcon);
          $(".popup-box #popup-text").text('Please select an option');
        }
       else{
-         $(".popup-box img").attr("src",wrongAnswerIcon);
+         $(".popup-box img").attr("src",quiz.wrongAnswerIcon);
         $(".popup-box #popup-text").text(`Sorry, the correct answer was: ${answer}`);
       }
     }
      $(".popup-box").show();
-}
+},
 
 //This function will proceed to the next question or display the final score
 //based on the question count.
-function handlePopupClose(){
-  $('.js-close-button').on('click', function(event){
-    console.log("handlePopupClose() ran");
-    $('.popup-box').hide();
-    $('.feedback-section').hide();
-    $('.quiz-box').hide().fadeIn();
-    questionCounter++;
-    if(questionCounter < questionsArray.length) {
-       $('.quiz-box').fadeIn();
-       renderQuizBox();
-    }
-    else{
-      $('.quiz-box').hide();
-      displayFinalScore();
-    }
-  });
-}
-
 //This function displays the final score once the quiz is completed
-function displayFinalScore(){
+
+displayFinalScore:function(){
    $('.end-section').fadeIn(1000);
-   $('.end-section h4').text(`Your Score is: ${score}/${questionsCount}`);
-   $('.correct .count' ).text(score);
-   $('.wrong .count').text(questionsCount - score);
-   if (score<=5)
+   $('.end-section h4').text(`Your Score is: ${quiz.score}/${quiz.questionsArray.length}`);
+   $('.correct .count' ).text(quiz.score);
+   $('.wrong .count').text(quiz.questionsArray.length - quiz.score);
+   if (quiz.score<=5)
    {
     $('.end-section #result').text("Your Performance is weak You need to practice more")
    }
-   if(score<=10 && score>5)
+   if(quiz.score<=10 && quiz.score>5)
    {
     $('.end-section #result').text("Your Performance is Average You need to do little bit more practice !")
    }
-   if (score<=15 && score>10)
+   if (quiz.score<=15 && quiz.score>10)
    {
     $('.end-section #result').text("Your Performance is Good. Keep it up!")
    }
-   resetQuiz();
-}
-
-//This function resets the questions and score
-function resetQuiz(){
-  questionCounter = 0;
-  score = 0;
+   quiz.resetQuiz();
+},
 }
 
 //This function will start over the quiz
-function handleStartOver(){
-  $('.js-startover-button').on('click',function(event){
-    console.log("handleStartOver() ran");
-    $('.end-section').hide();
-    $('.quiz-box').fadeIn();
-    renderQuizBox();
-  });
+function performQuiz(){
+  quiz.attemptQuiz();
 }
-
-function init(){
-  $('.end-section').hide();
-  $('.progress-section').hide();
-  $('.quiz-box').hide();
-  $('.feedback-section').hide();
-  handleStartClick();
-  handleSubmitAnswer();
-  handlePopupClose();
-  handleStartOver()
-}
-$(init());
+$(performQuiz());

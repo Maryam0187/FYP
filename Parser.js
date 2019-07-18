@@ -25,7 +25,7 @@ var TextEditor = {
       $("div.numberedtextarea-number.numberedtextarea-number-" + MemoryMap.IP).attr('style', 'background-color:#F9AA33');
       for (i = 0; i < Parser.code_line.length; i++) {
         if (i != MemoryMap.IP) {
-          $("div.numberedtextarea-number.numberedtextarea-number-" + i).attr('style', 'background-color:#232F34');
+          $("div.numberedtextarea-number.numberedtextarea-number-" + i).attr('style', 'background-color:#1d4d7d');
         }
       }
 
@@ -111,19 +111,27 @@ var Parser = {
         }
 
       }
-
-      cout_array.push(cout_value);
+      
+      
+      cout_array.push(cout_value); // cout total elements
       console.log(cout_array);
       cout_value = "";
       var str = "";
       for (k = 1; k < cout_array.length; k++) {
-        console.log(cout_array[k], "nnnnnnnnnnnnnn");
+        console.log(cout_array[k], "nnnnnnnnnnnnnn-----------------------");
         var functiontmp = cout_array[k].replace(/\s+/g, '');
+
         if (functiontmp[functiontmp.length - 1] == ';' && functiontmp[functiontmp.length - 2] == ')') // print function value
         {
-          console.log(this.return_val + " innnnnnnn");
+          console.log(this.return_val + " innnnnnnn------------------------");
           str = str + this.return_val;
-        } else if (cout_array[k][0] == '"') // print string
+        }
+        else if (cout_array[k][0] == 'e' && cout_array[k][1] == 'n' && cout_array[k][2] == 'd' && cout_array[k][3] == 'l') {
+          console.log(str + " endl check--------------------");
+          str = str + '\n';
+
+        }
+        else if (cout_array[k][0] == '"') // print string
         {
           for (y = 1; y < cout_array[k].length - 2; y++) {
             if (cout_array[k][y] != '"') {
@@ -131,31 +139,34 @@ var Parser = {
             }
 
           }
-          console.log(cout_value + " for pattern");
+          console.log(cout_value + " for pattern-----------------------");
           str = str + cout_value;
           cout_value = "";
         } else if (this.isvariable(cout_array[k])) // print variable value
         {
-          console.log("in the varaible");
+          console.log("in the varaible-----------------------");
           var var_name = this.getvariable_name(cout_array[k]);
           var var_val = this.variable_list.getvalue(var_name);
           cout_value = cout_array[k].replace(var_name, var_val);
+          console.log(cout_array[k][5] + "-------------------------+========");
+          var checkcolon=cout_array[k].length;
+          if(cout_array[k][checkcolon-2]==';')
+          {console.log(checkcolon+"++++++++++++++++++++++"+cout_array[k][checkcolon-2]+"++++++++++++++++=");
           var t = "";
-          for (g = 0; g < cout_value.length - 2; g++) {
-            t = t + cout_value[g];
+          for (g = 0;cout_value[g]!=';' ; g++) {
+          t = t + cout_value[g];
+          console.log(t);
           }
-          cout_value = t;
+          cout_value=t;
+          }
+          
           if (this.arthimeticline(cout_value)) {
             cout_value = this.parsearthmetic(cout_value);
           }
-
+          console.log(cout_value + "-------------------------");
           str = str + cout_value;
-          console.log(str + "in the variable cout");
+          console.log(str + "in the variable cout--------------------");
           cout_value = "";
-
-        } else if (cout_array[k][0] == 'e' && cout_array[k][1] == 'n' && cout_array[k][2] == 'd' && cout_array[k][3] == 'l') {
-          console.log(str + " endl check");
-          str = str + '\n';
 
         } else {
           str = str + cout_array[k];
@@ -614,7 +625,7 @@ var MemoryMap = {
   SP: [],
   SP_line_number: [], // return to line number when pop  
   sendStackvalues: function () {
-    var out = "               Stack" + "\n" + "_______________________" + "\n";
+    var out = "               STACK" + "\n" + "_______________________" + "\n";
     for (i = MemoryMap.SP.length - 1; i >= 0; i--) {
       out = out + "  " + MemoryMap.SP[i] + "\n";
 
@@ -632,7 +643,7 @@ var MemoryMap = {
       $('#outputstack').css('color', 'white');
       $('#outputstack').css('font-weight', 'bold');
 
-  
+
     }
 
   },
@@ -649,7 +660,7 @@ var MemoryMap = {
 
   },
   sendDataValues: function () {
-    var out1 = "    Data Segment" + "\n" + "_________________" + "\n";
+    var out1 = "    DATA SEGMENT" + "\n" + "_________________" + "\n";
     for (i = 0; i < Parser.function_name_array.length; i++) {
       out1 = out1 + "  " + Parser.function_name_array[i] + "\n";
     }
@@ -685,7 +696,7 @@ function runFunction() {
   var i = 0;
   for (i = 0; i < Parser.code_line.length; i++) {
     if (i != MemoryMap.IP) {
-      $("div.numberedtextarea-number.numberedtextarea-number-" + i).attr('style', 'background-color:#232F34');
+      $("div.numberedtextarea-number.numberedtextarea-number-" + i).attr('style', 'background-color:#1d4d7d');
     }
   }
   MemoryMap.sendStackvalues();

@@ -132,19 +132,19 @@
     });
 
     server.on('close', function() {
-        console.log('Cesium development server stopped.');
+        console.log('server stopped.');
     });
 
     var isFirstSig = true;
     process.on('SIGINT', function() {
         if (isFirstSig) {
-            console.log('Cesium development server shutting down.');
+            console.log('server shutting down.');
             server.close(function() {
               process.exit(0);
             });
             isFirstSig = false;
         } else {
-            console.log('Cesium development server force kill.');
+            console.log('server force kill.');
             process.exit(1);
         }
     });
